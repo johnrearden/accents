@@ -1,24 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import AccentChooser from './AccentChooser.js';
+import Megamap from './Megamap.js';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='header'>
+        <h1>Knowing Ireland</h1>
+      </div>
+      <div className='nav_bar'>
+        {/* <a href='#'>Rivers</a>
+        <a href='#'>Mountains</a>
+        <a href='#'>Towns and Cities</a>
+        <a href='#' style={{ float: 'right' }}>Take the test!</a> */}
+      </div>
+      {/* <div className='accent_chooser'>
+        {<AccentChooser />}
+        
+      </div> */}
+      <div>
+        <Megamap />
+      </div>
     </div>
   );
 }
