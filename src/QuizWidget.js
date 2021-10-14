@@ -6,6 +6,14 @@ function QuizWidget(props) {
     const [remainingQs, getRemainingQs] = useState(props.totalNumQs);
     const countyList = county_data.map(county => county.name);
     console.log(countyList);
+    const [totalAnswered, setTotalAnswered] = useState(0);
+    const [totalCorrect, setTotalCorrect] = useState(0);
+
+    // function to play audio when quiz_option is clicked
+    const onOptionClick = () => {
+        const audioPlayer = document.getElementsByClassName('audio_player')[0];
+        audioPlayer.play();
+    }
 
     // Select a county at random, and then pick 3 others as candidates
     // First, shuffle the array.
@@ -24,7 +32,8 @@ function QuizWidget(props) {
         const title = county.charAt(0).toUpperCase() + county.slice(1);
         return (
             <React.Fragment key={county + '_key'}>
-                <div className='quiz_option'>
+                <div className='quiz_option'
+                     onClick={onOptionClick}>
                     <div className='option_image' style={{
                         backgroundImage: `url(${image_url})`,
                         backgroundRepeat: 'no-repeat',
@@ -46,10 +55,24 @@ function QuizWidget(props) {
         );
     });
 
+    
+
     return (
         <div className='container'>
+            <div className='totals'>
+                <h1>{totalCorrect}/{totalAnswered}</h1>
+            </div>
+            <div className='prompt'>
+                <h3>CHOOSE A COUNTY</h3>
+            </div>
             <div className='options_holder'>
                 {images}
+            </div>
+            <div>
+                <audio className='audio_player' controls >
+                    <source src='/audio/file_example_MP3_700KB.mp3'>
+                    </source>
+                </audio> 
             </div>
         </div>
 

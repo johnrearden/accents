@@ -6,9 +6,9 @@ import QuizWidget from './QuizWidget.js'
 function App() {
   return (
     <div className="App">
-      <div className='header'>
+      {/* <div className='header'>
         <h1>Knowing Ireland</h1>
-      </div>
+      </div> */}
       {/* <div className='megamap_div'>
         <Megamap />
       </div> */}

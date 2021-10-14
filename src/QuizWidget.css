@@ -1,5 +1,13 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items : center;
+    color: silver;
+}
+
 .options_holder {
-    width: 80vw;
+    width: 90vw;
     height: 50vh;
     padding: 20px;
     display: inline-grid;
@@ -8,11 +16,20 @@
     grid-gap: 20px;
 }
 
+.totals {
+    
+}
+
+.prompt {
+    
+}
+
 .quiz_option {
     padding : 10px;
     background-color: silver;
+    opacity : 0.7;
     border-radius: 10px;
-    box-shadow: 10px 10px 10px #999999;
+    box-shadow: 4px 4px 4px #999999;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -20,7 +37,7 @@
 
 .quiz_option:hover {
     background-color: #bdbde7;
-    box-shadow: 5px 5px 5px #9fa0e9;
+    box-shadow: 2px 2px 2px #9fa0e9;
     margin: 1px;
 }
 
@@ -31,8 +48,13 @@
 .option_label {
     flex-grow: 0;
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
+    color: black;
+}
+
+.audio_player {
+    
 }
 
 
