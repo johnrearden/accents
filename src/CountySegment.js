@@ -3,7 +3,7 @@ import './CountySegment.css';
 import {OPACITY_INCREMENT, OPACITY_DECREMENT} from './data/constants';
 
 /* 
-    A CountySegment component takes the following props from it's parent :
+    A CountySegment component takes the following props from its parent :
         .source : The path to the image source file
         .top    : The top style attribute
         .left   : The left style attribute
@@ -45,7 +45,7 @@ export default class CountySegment extends React.Component {
     }
 
     render() {
-        let source = '/images/' + this.props.source + '.png';
+        const source = '/images/' + this.props.source + '.png';
         // {`/images/${this.props.source}.png`}
         return (
             <div className='county_segment' >

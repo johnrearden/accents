@@ -4,4 +4,5 @@
 
 .megamap {
     background-color: #707070;
+    overflow: hidden;
 }

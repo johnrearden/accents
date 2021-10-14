@@ -1,0 +1,38 @@
+.options_holder {
+    width: 80vw;
+    height: 50vh;
+    padding: 20px;
+    display: inline-grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    grid-gap: 20px;
+}
+
+.quiz_option {
+    padding : 10px;
+    background-color: silver;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px #999999;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.quiz_option:hover {
+    background-color: #bdbde7;
+    box-shadow: 5px 5px 5px #9fa0e9;
+    margin: 1px;
+}
+
+.option_image {
+    flex-grow: 1;
+}
+
+.option_label {
+    flex-grow: 0;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+

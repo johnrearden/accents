@@ -5,6 +5,8 @@
 html, body {
   margin : 0;
   padding : 0;
+  width : 100vw;
+  height : 100vh;
 }
 
 body {
@@ -17,8 +19,8 @@ body {
   display : flex;
   flex-direction : column;
   flex-wrap : nowrap;
-  width : 100vw;
-  height : 100vh;
+  width: 100%;
+  height: 100%
 }
 
 .header {
@@ -28,7 +30,18 @@ body {
   color : green;
 }
 
-.nav_bar {
+.megamap_div {
+  margin : 0;
+  padding : 0;
+}
+
+.quiz {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* .nav_bar {
   background-color : rgb(177, 192, 155);
   color : white;
   overflow: hidden;
@@ -41,21 +54,21 @@ body {
   color : darkgreen;
   text-decoration : none;
   padding : 14px 16px;
-}
+} */
 
-.accent_chooser {
+/* .accent_chooser {
   flex : 1 0 auto;
   background-color: red;
-}
+} */
 
 .nav_bar a:hover {
   background-color : darkgreen;
   color : white;
 }
 
-.App-logo {
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
+} */
 
 
