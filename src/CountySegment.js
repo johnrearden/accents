@@ -52,6 +52,8 @@ export default class CountySegment extends React.Component {
                 <img src={source}
                     ref='source_image'
                     className='county_map' alt='Map of County' 
+                    onClick={this.props.handleClick}
+                    onTouchEnd={this.props.handleClick}
                     style={{
                         position : 'absolute',
                         top : this.props.top,

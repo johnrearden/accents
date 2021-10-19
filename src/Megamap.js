@@ -6,21 +6,28 @@ import { IRELAND_MAP_BASE_WIDTH } from './data/constants';
 import { IRELAND_MAP_BASE_RATIO } from './data/constants';
 import './Megamap.css';
 
-function Megamap() {
-    const [currentCounty, setCurrentCounty] = useState('cork');
+function Megamap(props) {
+    const [currentCounty, setCurrentCounty] = useState(undefined);
     const [mapRect, setMapRect] = useState({left: 0, top: 0, width: 0, height: 0});
     const componentReference = useRef(null);
     const mapReference = useRef(null);
     const canvasRef = useRef(null);
     const hiddenImageRef = useRef(null);
     const mainDivRef = useRef(null);
+    const countyLabelRef = useRef(null);
+    const audioRef = useRef(null);
 
     useEffect(() => {
         function handleResize() {
             const compRect = componentReference.current.getBoundingClientRect();
+            const elementWidth = componentReference.current.elementWidth;
+            const elementHeight = componentReference.current.elementHeight;
             //console.dir(compRect, {depth: null});
             const windowSizeRatio = compRect.width / compRect.height;
             console.log('compRect : w/h = (' + compRect.width + ',' + compRect.height + ')');
+            console.log('window : w/h = (' + window.innerWidth + ',' + window.innerHeight 
+                + ')');
+            console.log('element : w/h = (' + compRect.width + ',' + compRect.height + ')');
             const excessHorizontalSpace = windowSizeRatio > IRELAND_MAP_BASE_RATIO;
             let newWidth = 0, newHeight = 0;
             if (excessHorizontalSpace) {
@@ -32,8 +39,9 @@ function Megamap() {
                 newHeight = compRect.width / IRELAND_MAP_BASE_RATIO;
                 console.log('Excess vertical space');
             }
+            const midX = compRect.left + compRect.width / 2;
             setMapRect({
-                left: compRect.left,
+                left: midX - newWidth / 2,
                 top: compRect.top,
                 width: newWidth,
                 height : newHeight
@@ -42,14 +50,25 @@ function Megamap() {
 
         // Call the resize method each time the window changes size.
         window.addEventListener('resize', handleResize);
+        //window.addEventListener('orientationchange', handleResize);
         
         // Call the resize method to inform component of correct size after first render is complete.
         window.setTimeout(handleResize, 200);
 
         // clean-up
-        return ()=> window.removeEventListener('resize', handleResize);
+        return ()=> {
+            window.removeEventListener('resize', handleResize);
+            //window.removeEventListener('orientationchange', handleResize);
+        }
 
     }, []);
+
+    const handleClick = (county) => {
+        console.log(currentCounty + ' clicked');
+        audioRef.current.currentTime = 0;
+        audioRef.current.play();
+        console.log(audioRef.current.getBoundingClientRect());
+    }
 
     const onMouseMove = (event) => {
         let canvas = canvasRef.current;
@@ -91,10 +110,10 @@ function Megamap() {
                     source={county.name + '_mono'}
                     top={mapRect.top + (county.top * sizeRatio)}
                     left={mapRect.left + (county.left * sizeRatio)}
-                    width={county.width * sizeRatio}
-                    height={county.height * sizeRatio}
+                    width={county.width * sizeRatio + 1}
+                    height={county.height * sizeRatio + 1}
                     highlighted={highlighted}
-                    handleClick={() => this.handleClick}
+                    handleClick={() => handleClick()}
                 />
             </React.Fragment>
         );
@@ -102,9 +121,6 @@ function Megamap() {
     
     return (
         <div className='megamap' ref={componentReference} onMouseMove={onMouseMove}>
-            <img src='/images/green_gold.jpeg' 
-                 alt='gen_ir2.jpg' 
-                 style={{opacity : 0.6, width:'100vw', height:'100vh'}}/>
             <div>
                 <img src='/images/counties_monochrome.png'
                     alt='count_mono.png'
@@ -114,8 +130,8 @@ function Megamap() {
                         top: mapRect.top, 
                         width: mapRect.width,
                         height: mapRect.height,
-                        opacity: 0.5,
-                        background : '#ffffff'
+                        backgroundColor: '#ffffff40',
+                        opacity: 0.8,
                     }} />
             </div>
             <div>
@@ -143,6 +159,28 @@ function Megamap() {
                     height : mapRect.height
                 }}>
                 {countyComponents}
+            </div>
+            <div id='county_label' 
+                 ref={countyLabelRef}
+                 style={{
+                     position: 'absolute',
+                     left: mapRect.left + 10,
+                     top: mapRect.top + 10, 
+                    //  color: '#33727b',
+                     color: 'black',
+                 }}>
+                <h2>
+                    {currentCounty === undefined ? 
+                        'Pick county' :
+                        currentCounty.charAt(0).toUpperCase() + currentCounty.slice(1)}
+                </h2>
+            </div>
+            <div style={{
+
+            }}>
+                <audio id='audio_player' controls ref={audioRef}>
+                    <source src='/audio/test_file2.mp3' type='audio/mp3'/>
+                </audio>
             </div>
             <div style={{ display: 'none' }}>
                 <canvas ref={canvasRef} width='400' height='498' />
