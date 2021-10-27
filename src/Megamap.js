@@ -168,7 +168,7 @@ function Megamap(props) {
                      left: mapRect.left + 10,
                      top: mapRect.top + 10, 
                     //  color: '#33727b',
-                     color: 'black',
+                     color: 'silver',
                  }}>
                 <h2>
                     {currentCounty === undefined ? 
