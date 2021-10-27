@@ -23,12 +23,12 @@ function App() {
 
       </div>
       <div className='interactive_elements'>
-        {/* <div className='megamap_div'>
+        <div className='megamap_div'>
           <Megamap onclick={handleClick}/>
-        </div> */}
-        <div className='quiz'>
-          <QuizWidget totalNumQs={10} />
         </div>
+        {/* <div className='quiz'>
+          <QuizWidget totalNumQs={10} />
+        </div> */}
       </div>
     </div>
 

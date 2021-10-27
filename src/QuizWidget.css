@@ -7,7 +7,7 @@
     justify-content: start;
     align-items : center;
     color: #333333;
-    background: #44444499;
+    background: #444444cc;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -40,7 +40,7 @@
     border-radius: 20px;
     border-style: solid;
     border-width: 5px;
-    border-color: #999999cc;
+    border-color: #999999dd;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -130,7 +130,8 @@ function Megamap(props) {
                         top: mapRect.top, 
                         width: mapRect.width,
                         height: mapRect.height,
-                        backgroundColor: '#ffffff40',
+                        // backgroundColor: '#ffffff40',
+                        backgroundColor: '#444444cc',
                         opacity: 0.8,
                     }} />
             </div>
@@ -178,7 +179,7 @@ function Megamap(props) {
             <div style={{
 
             }}>
-                <audio id='audio_player' controls ref={audioRef}>
+                <audio id='audio_player' ref={audioRef}>
                     <source src='/audio/test_file2.mp3' type='audio/mp3'/>
                 </audio>
             </div>
