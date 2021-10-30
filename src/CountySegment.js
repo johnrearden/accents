@@ -45,7 +45,7 @@ export default class CountySegment extends React.Component {
     }
 
     render() {
-        const source = '/images/' + this.props.source + '.png';
+        const source = '/images/counties_mono/' + this.props.source + '.png';
         // {`/images/${this.props.source}.png`}
         return (
             <div className='county_segment' >

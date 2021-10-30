@@ -20,24 +20,15 @@ function Megamap(props) {
     useEffect(() => {
         function handleResize() {
             const compRect = componentReference.current.getBoundingClientRect();
-            const elementWidth = componentReference.current.elementWidth;
-            const elementHeight = componentReference.current.elementHeight;
-            //console.dir(compRect, {depth: null});
             const windowSizeRatio = compRect.width / compRect.height;
-            console.log('compRect : w/h = (' + compRect.width + ',' + compRect.height + ')');
-            console.log('window : w/h = (' + window.innerWidth + ',' + window.innerHeight 
-                + ')');
-            console.log('element : w/h = (' + compRect.width + ',' + compRect.height + ')');
             const excessHorizontalSpace = windowSizeRatio > IRELAND_MAP_BASE_RATIO;
             let newWidth = 0, newHeight = 0;
             if (excessHorizontalSpace) {
                 newWidth = compRect.height * IRELAND_MAP_BASE_RATIO;
                 newHeight = compRect.height;
-                console.log('Excess horizontal space');
             } else {
                 newWidth = compRect.width;
                 newHeight = compRect.width / IRELAND_MAP_BASE_RATIO;
-                console.log('Excess vertical space');
             }
             const midX = compRect.left + compRect.width / 2;
             setMapRect({
@@ -64,6 +55,7 @@ function Megamap(props) {
     }, []);
 
     const handleClick = (county) => {
+        //props.onclick();
         console.log(currentCounty + ' clicked');
         audioRef.current.currentTime = 0;
         audioRef.current.play();
@@ -100,7 +92,6 @@ function Megamap(props) {
     }
 
     let sizeRatio = mapRect.width / IRELAND_MAP_BASE_WIDTH;
-    //console.dir(mapRect, {depth: null});
     const countyComponents = county_data.map((county) => {
         var highlighted = currentCounty === county.name ? true : false;
         return (
@@ -122,7 +113,7 @@ function Megamap(props) {
     return (
         <div className='megamap' ref={componentReference} onMouseMove={onMouseMove}>
             <div>
-                <img src='/images/counties_monochrome.png'
+                <img src='/images/ireland_maps/counties_monochrome.png'
                     alt='count_mono.png'
                     style={{
                         position: 'absolute',
@@ -136,7 +127,7 @@ function Megamap(props) {
                     }} />
             </div>
             <div>
-                <img src='/images/counties_monochrome_trans_white.png'
+                <img src='/images/ireland_maps/counties_monochrome_trans_white.png'
                     alt='mono_white.png'
                     ref={mapReference}
                     style={{
@@ -185,7 +176,7 @@ function Megamap(props) {
             </div>
             <div style={{ display: 'none' }}>
                 <canvas ref={canvasRef} width='400' height='498' />
-                <img src='/images/counties_model.png'
+                <img src='/images//ireland_maps/counties_model.png'
                     ref={hiddenImageRef}
                     alt='alt'
                     onLoad={onModelImageLoad} />
