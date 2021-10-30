@@ -9,7 +9,7 @@
 
 @media screen and (max-width: 900px) and (orientation:portrait) {
   .megamap {
-    width: 50vw;
+    width: 90vw;
     height: 85vh;
   }
 }

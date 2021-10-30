@@ -5,7 +5,6 @@ import './QuizWidget.css';
 function QuizWidget(props) {
     const [remainingQs, getRemainingQs] = useState(props.totalNumQs);
     const countyList = county_data.map(county => county.name);
-    console.log(countyList);
     const [totalAnswered, setTotalAnswered] = useState(0);
     const [totalCorrect, setTotalCorrect] = useState(0);
 
@@ -28,7 +27,7 @@ function QuizWidget(props) {
 
     // Map the possible answers to their images.
     const images = options.map((county) => {
-        const image_url = '/images/' + county + '_highlighted.png';
+        const image_url = '/images/highlighted_counties/' + county + '_highlighted.png';
         const title = county.charAt(0).toUpperCase() + county.slice(1);
         return (
             <React.Fragment key={county + '_key'}>
@@ -46,16 +45,10 @@ function QuizWidget(props) {
                     <div className='option_label'>
                         {title}
                     </div>
-                    {/* <img src={image_url}
-                        className='options_image'
-                        alt='missing image file' /> */}
-
                 </div>
             </React.Fragment>
         );
     });
-
-    
 
     return (
         <div className='container'>

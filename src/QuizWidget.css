@@ -1,5 +1,5 @@
 .container {
-    width: 100vw;
+    width: 50vw;
     height: 85vh;
     padding: 20px;
     display: flex;
@@ -13,7 +13,7 @@
 
 @media screen and (max-width: 900px) and (orientation:portrait) {
     .container {
-      width: 50vw;
+      width: 90vw;
       height: 85vh;
     }
   }
@@ -35,8 +35,8 @@
 }
 
 .quiz_option {
-    width: 15vw;
-    height: 15vw;
+    width: 12vw;
+    height: 12vw;
     padding : 10px;
     background-image: radial-gradient(#ddddddcc, #999999cc);
     opacity : 0.9;

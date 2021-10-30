@@ -59,7 +59,6 @@ function Megamap(props) {
         console.log(currentCounty + ' clicked');
         audioRef.current.currentTime = 0;
         audioRef.current.play();
-        console.log(audioRef.current.getBoundingClientRect());
     }
 
     const onMouseMove = (event) => {
@@ -99,8 +98,8 @@ function Megamap(props) {
                 <CountySegment
                     name={county.name}
                     source={county.name + '_mono'}
-                    top={mapRect.top + (county.top * sizeRatio)}
-                    left={mapRect.left + (county.left * sizeRatio)}
+                    top={county.top * sizeRatio}
+                    left={county.left * sizeRatio}
                     width={county.width * sizeRatio + 1}
                     height={county.height * sizeRatio + 1}
                     highlighted={highlighted}
@@ -121,32 +120,17 @@ function Megamap(props) {
                         top: mapRect.top, 
                         width: mapRect.width,
                         height: mapRect.height,
-                        // backgroundColor: '#ffffff40',
                         backgroundColor: '#444444cc',
                         opacity: 0.8,
                     }} />
             </div>
-            <div>
-                <img src='/images/ireland_maps/counties_monochrome_trans_white.png'
-                    alt='mono_white.png'
-                    ref={mapReference}
-                    style={{
-                        position: 'absolute',
-                        left: mapRect.left,
-                        top: mapRect.top,
-                        width: mapRect.width,
-                        height: mapRect.height,
-                        opacity: 0.0
-                    }} />
-            </div>
-            
             <div id='main_div' 
                 className='ireland_map_div' 
                 ref={mainDivRef}
                 style = {{
                     position : 'absolute',
-                    left : 0, 
-                    top : 0,
+                    left : mapRect.left, 
+                    top : mapRect.top,
                     width : mapRect.width,
                     height : mapRect.height
                 }}>

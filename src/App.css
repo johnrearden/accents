@@ -4,7 +4,7 @@
 
 html {
   width: 100vw;
-  height: 100vh;
+  height: 85vh;
 }
 
 body {
@@ -14,48 +14,36 @@ body {
   background-size: cover;
   background-attachment: fixed;
   position: fixed;
-  /* overflow: hidden; */
-}
-
-.App {
-  display : flex;
-  flex-direction : column;
-  align-items: stretch;
-  justify-content: center;
+  overflow: hidden;
 }
 
 .header {
-  z-index: 1;
   width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding : 5px;
   color:#feda0c;
   background-color: #33727bcc;
-  background-image: linear-gradient(#5e8c4eaa, #75b161aa);
+  background-image: linear-gradient(#20311aaa, #75b161aa);
 }
 
 .app_name {
   color:#feda0c;
   font-weight: bold;
   text-align: left;
-  padding-left: 10px;
+  padding-left: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .nav_links {
-  display: flex;
-  flex-direction: row;
-  font-weight: bold;
+  color:#feda0c;
   font-family: monospace;
-}
-
-.link {
   padding-right: 15px;
 }
 
 .interactive_elements {
+  width: 100vw;
+  height: 85vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -64,18 +52,18 @@ body {
 }
 
 @media screen and (max-width: 900px) and (orientation:portrait) {
-  .megamap_div {width: 90vw;
-                height: 85vh;
+  .interactive_elements {
+    width: 100vw;
+    height: 85vh;
+    padding: 20px;
   }
-  .quiz {width: 90vw;
-         height: 85vh;}
 }
 
-@media screen and (max-width:900px) {
+/* @media screen and (max-width:900px) {
   .header{
     padding : 0px;
   }
-}
+} */
 
 .active {
   color: red

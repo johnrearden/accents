@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, NavLink, NavBar } from 'react-router-dom';
 import './App.css';
 import Megamap from './Megamap.js';
 import QuizWidget from './QuizWidget.js'
@@ -8,10 +8,20 @@ const handleClick = (county) => {
   console.log('App component clicked');
 }
 
-const Dummy = () => (
-  <div>
-    <h1 >Dummy Component</h1>
-    <button onClick={console.log('dummy clicked')}>Yo!</button>
+const Nav = () => (
+  <div className='header'>
+    <div className='app_name'>
+      <h2>Accents</h2>
+    </div>
+    <div>
+      <NavLink className='nav_links' exact to='/' activeClassName='active'>
+        Home
+      </NavLink>
+      <NavLink className='nav_links' to='/quiz' activeClassName='active'>
+        Quiz
+      </NavLink>
+    </div>
+
   </div>
 )
 
@@ -19,23 +29,13 @@ const App = () => {
   return (
     <div>
       <BrowserRouter>
-        <ul>
-          <li>
-            <NavLink to='/mega' activeClassName='active'>Mega</NavLink>
-          </li>
-          <li>
-            <NavLink to='/quiz' activeClassName='active'>Quiz</NavLink>
-          </li>
-          <li>
-            <NavLink activeClassName='active' to='/dummy'>Dummy</NavLink>
-          </li>
-        </ul>
-        <hr />
+        <Nav />
+        <div className='interactive_elements'>
         <Switch>
-          <Route exact path='/mega' component={Megamap} />
           <Route exact path='/quiz' render={() => <QuizWidget totalNumQs={10} />} />
-          <Route exact path='/dummy' component={Dummy} />
+          <Route exact path='/' component={Megamap} />
         </Switch>
+        </div>
       </BrowserRouter>
     </div >
   );
