@@ -4,12 +4,12 @@
 
 html {
   width: 100vw;
-  height: 85vh;
+  height: 100vh;
 }
 
 body {
   font-family : Arial;
-  background-image: url('/images/backgrounds/autumn_green_gold.jpeg');
+  background-image: url('/images/backgrounds/autumn_mist_2.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -45,10 +45,10 @@ body {
   width: 100vw;
   height: 85vh;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: start;
   align-items: center;
-  padding: 20px;
+  margin-top: 20px;
 }
 
 @media screen and (max-width: 900px) and (orientation:portrait) {
