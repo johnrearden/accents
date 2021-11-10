@@ -92,7 +92,7 @@
     color: black;
 }
 
-.play_clip_button {
+.start_button {
     width: 16vw;
     background-image: radial-gradient(#dddddd, #999999);
     font-size: 30px;
@@ -103,9 +103,14 @@
     font-weight: bold;
 }
 
-.play_clip_button:hover {
+.start_button:disabled {
+    color: silver;
+    pointer-events: none;
+}
+
+.start_button:hover {
     background-image: radial-gradient(#dddddd, #bbbbbb);
-    color: #00aa00;
+    color: #2a9e2a;
 }
 
 .audio_player {
