@@ -14,7 +14,7 @@ const correctSoundSource = '/audio/correct_bell.mp3';
 const wrongSoundSource = '/audio/wrong_buzz.mp3';
 
 // Variables without re-render on mutation.
-let correctChoice = null;
+let correctIndex = -1;
 let currentChoices = [];
 let running = false;
 
@@ -23,12 +23,13 @@ function QuizWidget(props) {
     const countyList = county_data.map(county => county.name);
     const [totalAnswered, setTotalAnswered] = useState(0);
     const [totalCorrect, setTotalCorrect] = useState(0);
-    const [currentChoiceIcons, setCurrentChoiceIcons] = useState([]);
     const [userMessage, setUserMessage] = useState('Guess the county ...');
     const [startButtonEnabled, setStartButtonEnabled] = useState(true);
     const [startButtonText, setStartButtonText] = useState('Start Quiz');
     const [quizIsComplete, setQuizIsComplete] = useState(false);
     const [currentChoices, setCurrentChoices] = useState([]);
+
+    console.log('QuizWidget is running.');
 
     // Function to handle callback from QuizOptions when answer is chosen.
     const onAnswerChosen = (answerIsCorrect) => {
@@ -82,7 +83,8 @@ function QuizWidget(props) {
 
         // Take the first 4 elements and choose correct answer at random.
         setCurrentChoices(countyList.slice(0, 4));
-        correctChoice = currentChoices[Math.floor(Math.random() * 4)];
+        correctIndex = Math.floor(Math.random() * 4);
+        console.log('correct choice is ' + correctIndex);
     }
 
     if (quizIsComplete) {
@@ -102,7 +104,7 @@ function QuizWidget(props) {
                 </div>
                 <div className='options'>
                     <QuizOptions choices={currentChoices}
-                        correctAnswer={correctChoice}
+                        correctIndex={correctIndex}
                         notifyParent={onAnswerChosen} />
                 </div>
                 <div className='instructions'>

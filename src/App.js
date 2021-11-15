@@ -32,7 +32,7 @@ const App = () => {
         <Nav />
         <div className='interactive_elements'>
         <Switch>
-          <Route exact path='/quiz' render={() => <QuizWidget totalNumQs={2}/>} />
+          <Route exact path='/quiz' render={() => <QuizWidget totalNumQs={10}/>} />
           <Route exact path='/' component={Megamap} />
         </Switch>
         </div>
