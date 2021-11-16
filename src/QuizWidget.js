@@ -65,12 +65,13 @@ function QuizWidget(props) {
     const onStartPressed = () => {
         running = true;
         setStartButtonEnabled(false);
+        createNewQuestion();
     }
 
     // This effect runs once, after the first render, creating a new question.
-    useEffect(() => {
-        createNewQuestion();
-    }, []);
+    // useEffect(() => {
+    //     createNewQuestion();
+    // }, []);
 
     // Steps quiz forward to the next question, loading the correct images and audioclip
     const createNewQuestion = () => {
@@ -84,7 +85,6 @@ function QuizWidget(props) {
         // Take the first 4 elements and choose correct answer at random.
         setCurrentChoices(countyList.slice(0, 4));
         correctIndex = Math.floor(Math.random() * 4);
-        console.log('correct choice is ' + correctIndex);
     }
 
     if (quizIsComplete) {
@@ -105,7 +105,8 @@ function QuizWidget(props) {
                 <div className='options'>
                     <QuizOptions choices={currentChoices}
                         correctIndex={correctIndex}
-                        notifyParent={onAnswerChosen} />
+                        notifyParent={onAnswerChosen} 
+                        running={running}/>
                 </div>
                 <div className='instructions'>
                     {userMessage}
