@@ -44,13 +44,20 @@ function QuizWidget(props) {
     // for another question
     const onReadyForNewQuestion = () => {
         if (running) {
-            //setCurrentChoices([]);
+            setCurrentChoices([]);
             createNewQuestion();
             setUserMessage('Try this one ...');
         }
     }
 
-    // Callback to check if quiz is complete.
+    // Hook to clean-up on dismount
+    useEffect(() => {
+        return () => {
+            running = false;
+        }
+    }, []);
+
+    // Hook to check if quiz is complete.
     useEffect(() => {
         if (totalAnswered >= props.totalNumQs) {
             console.log('quiz complete');
@@ -109,8 +116,7 @@ function QuizWidget(props) {
                         correctIndex={correctIndex}
                         onOptionSelected={onAnswerChosen}
                         onReadyForNewQuestion={onReadyForNewQuestion}
-                        running={running} 
-                        uniqueKey={new Date().getTime()}/>
+                        running={running} />
                 </div>
                 <div className='instructions'>
                     {userMessage}

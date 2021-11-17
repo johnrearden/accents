@@ -7,9 +7,9 @@ const BACKGROUND_IMAGE_CORRECT = 'radial-gradient(#7777ff, #777799)'
 const BACKGROUND_IMAGE_WRONG = 'radial-gradient(#ff7777, #997777)'
 const BACKGROUND_IMAGE_UNSELECTED = 'radial-gradient(#dddddd, #999999)';
 const BORDER_COLOR_UNSELECTED = '#999999dd';
-const BORDER_PERSISTENCE_DURATION = 1500;
-const VOLUME_FADE_PERIOD = 1500;
-const APPEARANCE_RESET_TIMEOUT = 2000;
+const BORDER_PERSISTENCE_DURATION = 1000;
+const VOLUME_FADE_PERIOD = 1000;
+const APPEARANCE_RESET_TIMEOUT = 1000;
 const CORRECT_SOUND_SOURCE = '/audio/correct_bell.mp3';
 const WRONG_SOUND_SOURCE = '/audio/wrong_buzz.mp3';
 
@@ -32,7 +32,6 @@ function QuizOptions(props) {
     const isTransition = useRef(false);
     const target = useRef(null);
     const [opacity, setOpacity] = useState(0.0);
-    const [count, setCount] = useState(0);
 
     // Hook to make the component visible again after a new set of choices
     // is received from the parent.
@@ -40,9 +39,13 @@ function QuizOptions(props) {
         if (props.running) {
             isTransition.current = false;
             console.log('props.choices altered .... running useEffect()');
-            makeVisible(true);
+            const makeOptionsVisibleTimeout = setTimeout(() => {
+                makeVisible(true);
+            }, 1000);
             playCurrentClip();
-            
+
+            // Clean-up
+            return () => clearTimeout(makeOptionsVisibleTimeout);
         }
     }, [props.choices]);
 
@@ -106,19 +109,24 @@ function QuizOptions(props) {
         }
     }, [isTransition.current]);
 
+    // Hook to clean-up audio on dismount
+    useEffect(() => {
+        return () => {
+            stopCurrentClip();
+        }
+    }, []);
+
     // Handler for click events on the options.
     const onOptionClick = (event, county) => {
         if (isTransition.current) {
             return; // take no action until component is reset
         } else {
             isTransition.current = true;
-            console.log('isTransition.current is switched to ' + isTransition.current);
             target.current = event.currentTarget;
             let selectedIndex = props.choices.indexOf(county);
             let answerIsCorrect = props.correctIndex == selectedIndex;
             props.onOptionSelected(answerIsCorrect);
 
-            console.log(event.currentTarget);
             // Alter appearance of chosen option to reflect correct/incorrect choice
             if (answerIsCorrect) {
                 event.currentTarget.style.borderColor = 'blue';
@@ -129,7 +137,6 @@ function QuizOptions(props) {
                 event.currentTarget.style.backgroundImage = BACKGROUND_IMAGE_WRONG;
                 playWrongSound();
             }
-            //setCount(count + 1);
         }
     }
 
@@ -200,7 +207,7 @@ function QuizOptions(props) {
 
     return (
         <div>
-            <div className='options_holder' key={props.uniqueKey}>
+            <div className='options_holder'>
                 {imageArray}
             </div>
         </div>
