@@ -9,7 +9,7 @@ const BACKGROUND_IMAGE_UNSELECTED = 'radial-gradient(#dddddd, #999999)';
 const BORDER_COLOR_UNSELECTED = '#999999dd';
 const BORDER_PERSISTENCE_DURATION = 1500;
 const VOLUME_FADE_PERIOD = 1500;
-const APPEARANCE_RESET_TIMEOUT = 3000;
+const APPEARANCE_RESET_TIMEOUT = 2000;
 const CORRECT_SOUND_SOURCE = '/audio/correct_bell.mp3';
 const WRONG_SOUND_SOURCE = '/audio/wrong_buzz.mp3';
 
@@ -24,7 +24,6 @@ const WRONG_SOUND_SOURCE = '/audio/wrong_buzz.mp3';
 //          props.notifyParent - callback to inform parent of choice.
 //          props.running - a flag to indicate that the start quiz button has been pressed
 
-// comment h
 
 function QuizOptions(props) {
     console.log('QuizOptions running');
@@ -33,16 +32,17 @@ function QuizOptions(props) {
     const isTransition = useRef(false);
     const target = useRef(null);
     const [opacity, setOpacity] = useState(0.0);
+    const [count, setCount] = useState(0);
 
     // Hook to make the component visible again after a new set of choices
     // is received from the parent.
     useEffect(() => {
         if (props.running) {
-            console.log('isTransition.current == ' + isTransition.current);
+            isTransition.current = false;
             console.log('props.choices altered .... running useEffect()');
             makeVisible(true);
             playCurrentClip();
-            isTransition.current = false;
+            
         }
     }, [props.choices]);
 
@@ -76,16 +76,32 @@ function QuizOptions(props) {
         if (isTransition.current) {
             let opacityTimeout = setTimeout(() => {
                 makeVisible(false);
+                console.log('opacity reset');
             }, BORDER_PERSISTENCE_DURATION);
             let appearanceTimeout = setTimeout(() => {
                 target.current.style.backgroundImage = BACKGROUND_IMAGE_UNSELECTED;
                 target.current.style.borderColor = BORDER_COLOR_UNSELECTED;
+                console.log('appearance reset');
             }, APPEARANCE_RESET_TIMEOUT);
 
             // Clean-up
             return () => {
                 clearTimeout(opacityTimeout);
                 clearTimeout(appearanceTimeout);
+            }
+        }
+    }, [isTransition.current]);
+
+    // Hook to notify parent that we are ready for another question
+    useEffect(() => {
+        if (isTransition.current) {
+            let readyForNewQuestionTimeout = setTimeout(() => {
+                props.onReadyForNewQuestion();
+            }, BORDER_PERSISTENCE_DURATION + APPEARANCE_RESET_TIMEOUT + 1.0)
+
+            // Clean-up
+            return () => {
+                clearTimeout(readyForNewQuestionTimeout);
             }
         }
     }, [isTransition.current]);
@@ -100,8 +116,9 @@ function QuizOptions(props) {
             target.current = event.currentTarget;
             let selectedIndex = props.choices.indexOf(county);
             let answerIsCorrect = props.correctIndex == selectedIndex;
-            props.notifyParent(answerIsCorrect);
+            props.onOptionSelected(answerIsCorrect);
 
+            console.log(event.currentTarget);
             // Alter appearance of chosen option to reflect correct/incorrect choice
             if (answerIsCorrect) {
                 event.currentTarget.style.borderColor = 'blue';
@@ -112,6 +129,7 @@ function QuizOptions(props) {
                 event.currentTarget.style.backgroundImage = BACKGROUND_IMAGE_WRONG;
                 playWrongSound();
             }
+            //setCount(count + 1);
         }
     }
 
@@ -176,13 +194,13 @@ function QuizOptions(props) {
     });
 
     // Load the new audio clip for the correct answer into the audioplayer
-    //
+    // h
     //
     //
 
     return (
         <div>
-            <div className='options_holder'>
+            <div className='options_holder' key={props.uniqueKey}>
                 {imageArray}
             </div>
         </div>

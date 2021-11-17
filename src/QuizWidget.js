@@ -38,15 +38,16 @@ function QuizWidget(props) {
         if (answerIsCorrect) {
             setTotalCorrect(totalCorrect + 1);
         }
+    }
 
-        // If the quiz is still incomplete, after a delay, create and 
-        // display the next question.
-        window.setTimeout(() => {
-            if (running) {
-                createNewQuestion();
-                setUserMessage('Try this one ...');
-            }
-        }, 3000);
+    // Function to handle callback from QuizOptions when it's ready
+    // for another question
+    const onReadyForNewQuestion = () => {
+        if (running) {
+            //setCurrentChoices([]);
+            createNewQuestion();
+            setUserMessage('Try this one ...');
+        }
     }
 
     // Callback to check if quiz is complete.
@@ -83,6 +84,7 @@ function QuizWidget(props) {
         }
 
         // Take the first 4 elements and choose correct answer at random.
+        console.log('Creating new question');
         setCurrentChoices(countyList.slice(0, 4));
         correctIndex = Math.floor(Math.random() * 4);
     }
@@ -105,8 +107,10 @@ function QuizWidget(props) {
                 <div className='options'>
                     <QuizOptions choices={currentChoices}
                         correctIndex={correctIndex}
-                        notifyParent={onAnswerChosen} 
-                        running={running}/>
+                        onOptionSelected={onAnswerChosen}
+                        onReadyForNewQuestion={onReadyForNewQuestion}
+                        running={running} 
+                        uniqueKey={new Date().getTime()}/>
                 </div>
                 <div className='instructions'>
                     {userMessage}
