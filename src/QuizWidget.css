@@ -27,13 +27,7 @@
     color: white;
 }
 
-.option_label {
-    flex-grow: 1;
-    text-align: center;
-    font-size: 25px;
-    font-weight: bold;
-    color: black;
-}
+
 
 .start_button {
     width: 16vw;
@@ -47,7 +41,7 @@
 }
 
 .start_button:disabled {
-    color: silver;
+    color: #99999911;
     pointer-events: none;
 }
 
@@ -70,6 +64,11 @@
     }
     .instructions {
         font-size: 20px;
+    }
+
+    .start_button {
+        width: 30vw;
+        font-size: 15px;
     }
 }
 

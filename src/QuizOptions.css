@@ -11,7 +11,7 @@
 }
 
 .quiz_option:hover {
-    background-image: radial-gradient(#dddddd, #999999);
+    background-image: radial-gradient(#dddddd77, #99999977);
     border-color: #ffffff;
 }
 
@@ -21,9 +21,10 @@
     width: 12vw;
     height: 12vw;
     padding : 10px;
-    background-image: radial-gradient(#dddddd, #999999);
+    background-image: radial-gradient(#dddddd44, #99999944);
     /* opacity : 0.0; */
     display: flex;
+    color: white;
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
@@ -50,6 +51,14 @@
     border-style: solid;
     border-width: 5px;
     border-color: #999999dd;
+}
+
+.option_label {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 25px;
+    /* font-weight: bold; */
+    color: white;
 }
 
 .option_image {

@@ -90,6 +90,10 @@ function Megamap(props) {
         );
     }
 
+    const calculateExpandedSize = (county) => {
+
+    }
+
     let sizeRatio = mapRect.width / IRELAND_MAP_BASE_WIDTH;
     const countyComponents = county_data.map((county) => {
         var highlighted = currentCounty === county.name ? true : false;
@@ -100,8 +104,8 @@ function Megamap(props) {
                     source={county.name + '_mono'}
                     top={county.top * sizeRatio}
                     left={county.left * sizeRatio}
-                    width={county.width * sizeRatio + 1}
-                    height={county.height * sizeRatio + 1}
+                    width={county.width * sizeRatio}
+                    height={county.height * sizeRatio}
                     highlighted={highlighted}
                     handleClick={() => handleClick()}
                 />
@@ -112,7 +116,7 @@ function Megamap(props) {
     return (
         <div className='megamap' ref={componentReference} onMouseMove={onMouseMove}>
             <div>
-                <img src='/images/ireland_maps/counties_monochrome.png'
+                <img src='/images/ireland_maps/counties_monochrome_2.png'
                     alt='count_mono.png'
                     style={{
                         position: 'absolute',

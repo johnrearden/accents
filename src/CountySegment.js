@@ -24,9 +24,9 @@ export default class CountySegment extends React.Component {
 
     adjustOpacity = () => {
         if (this.props.highlighted) {
-            if (this.state.opacity < 0.7) {
+            if (this.state.opacity < 1.0) {
                 let tempOpac = this.state.opacity + OPACITY_INCREMENT;
-                tempOpac = tempOpac > 0.7 ? 0.7 : tempOpac;
+                tempOpac = tempOpac > 1.0 ? 1.0 : tempOpac;
                 this.setState({opacity : tempOpac}, () => requestAnimationFrame(this.adjustOpacity));
             }
         } else if (!this.props.highlighted) {
@@ -51,7 +51,6 @@ export default class CountySegment extends React.Component {
                 <img src={source}
                     className='county_map' alt='Map of County' 
                     onClick={(event)=> {
-                        event.stopPropagation();
                         this.props.handleClick()}
                     }
                     onTouchEnd={this.props.handleClick}
