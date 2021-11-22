@@ -5,7 +5,7 @@ import Megamap from './Megamap.js';
 import QuizWidget from './QuizWidget.js'
 
 const handleClick = (county) => {
-  console.log('App component clicked');
+  console.log('App component cldicked');
 }
 
 const Nav = () => (
@@ -32,7 +32,7 @@ const App = () => {
         <Nav />
         <div className='interactive_elements'>
         <Switch>
-          <Route exact path='/quiz' render={() => <QuizWidget totalNumQs={10}/>} />
+          <Route exact path='/quiz' render={() => <QuizWidget totalNumQs={3}/>} />
           <Route exact path='/' component={Megamap} />
         </Switch>
         </div>

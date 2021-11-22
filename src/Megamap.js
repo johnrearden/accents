@@ -16,6 +16,8 @@ function Megamap(props) {
     const mainDivRef = useRef(null);
     const countyLabelRef = useRef(null);
     const audioRef = useRef(null);
+    const [shouldRerender, setShouldRerender] = useState(true);
+
 
     useEffect(() => {
         function handleResize() {
@@ -39,20 +41,24 @@ function Megamap(props) {
             });
         }
 
+        handleResize();
+
         // Call the resize method each time the window changes size.
         window.addEventListener('resize', handleResize);
-        //window.addEventListener('orientationchange', handleResize);
-        
-        // Call the resize method to inform component of correct size after first render is complete.
-        window.setTimeout(handleResize, 200);
 
         // clean-up
         return ()=> {
             window.removeEventListener('resize', handleResize);
             //window.removeEventListener('orientationchange', handleResize);
         }
-
     }, []);
+
+    // Forces a second render.
+    useEffect(() => {
+        if (shouldRerender) {
+            setShouldRerender(false);
+        }
+    }, [shouldRerender]);
 
     const handleClick = (county) => {
         //props.onclick();

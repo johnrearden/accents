@@ -97,7 +97,7 @@ function QuizWidget(props) {
     }
 
     if (quizIsComplete) {
-        return (<Redirect to={'/home'} />);
+        return (<Redirect to={'/'} />);
     } else {
         return (
             <div className='container'>
