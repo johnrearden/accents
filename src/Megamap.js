@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef } from 'react';
 import { county_red_codes } from './data/county_red_codes';
 import { county_data } from './data/county_data';
 import CountySegment from './CountySegment.js';
+import CountyTile from './CountyTile.js';
 import { IRELAND_MAP_BASE_WIDTH } from './data/constants';
 import { IRELAND_MAP_BASE_RATIO } from './data/constants';
 import './Megamap.css';
@@ -103,20 +104,23 @@ function Megamap(props) {
     let sizeRatio = mapRect.width / IRELAND_MAP_BASE_WIDTH;
     const countyComponents = county_data.map((county) => {
         var highlighted = currentCounty === county.name ? true : false;
-        return (
-            <React.Fragment key={county.name + '_key'}>
-                <CountySegment
-                    name={county.name}
-                    source={county.name + '_mono'}
-                    top={county.top * sizeRatio}
-                    left={county.left * sizeRatio}
-                    width={county.width * sizeRatio}
-                    height={county.height * sizeRatio}
-                    highlighted={highlighted}
-                    handleClick={() => handleClick()}
-                />
-            </React.Fragment>
-        );
+        if (highlighted) {
+            return (
+                <React.Fragment key={county.name + '_key'}>
+                    <CountyTile
+                        name={county.name}
+                        source={county.name + '_mono'}
+                        top={county.top * sizeRatio}
+                        left={county.left * sizeRatio}
+                        width={county.width * sizeRatio}
+                        height={county.height * sizeRatio}
+                        highlighted={highlighted}
+                        handleClick={() => handleClick()}
+                    />
+                </React.Fragment>
+            );
+        }
+        
     });
     
     return (
