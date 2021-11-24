@@ -1,10 +1,15 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import './CountyTile.css';
 
 const CountyTile = (props) => {
-    const previousHighlighted = useRef(false);
-    console.log(props.name + ' running');
+    //console.log(props.name + ' running');
     const source = '/images/counties_mono/' + props.source + '.png';
+    let opac = 0.4;
+    if (props.highlighted) {
+        opac = 1.0;
+    } else if (props.backgrounded) {
+        opac = 0.2;
+    }
 
     return (
         <div className='county_tile' >
@@ -21,10 +26,16 @@ const CountyTile = (props) => {
                     left: props.left,
                     width: props.width,
                     height: props.height,
-                    opacity: props.highlighted ? 1.0 : 0.0,
-                    
+                    opacity: opac,
+                    zIndex: props.highlighted ? 10 : 5,
                 }} />
-
+            <div className='county_label'
+                 style={{position: 'relative',
+                        color: 'white',
+                        fontSize: '12px',
+                        opacity: 0.0}}>
+                {props.name}
+            </div>
         </div>
     );
 }

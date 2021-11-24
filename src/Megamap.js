@@ -1,15 +1,17 @@
-import React, {useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { county_red_codes } from './data/county_red_codes';
 import { county_data } from './data/county_data';
 import CountySegment from './CountySegment.js';
 import CountyTile from './CountyTile.js';
+import CountyTile2 from './CountyTile2.js';
 import { IRELAND_MAP_BASE_WIDTH } from './data/constants';
 import { IRELAND_MAP_BASE_RATIO } from './data/constants';
 import './Megamap.css';
 
 function Megamap(props) {
     const [currentCounty, setCurrentCounty] = useState(undefined);
-    const [mapRect, setMapRect] = useState({left: 0, top: 0, width: 0, height: 0});
+    const [selectedCounty, setSelectedCounty] = useState('none');
+    const [mapRect, setMapRect] = useState({ left: 0, top: 0, width: 0, height: 0 });
     const componentReference = useRef(null);
     const mapReference = useRef(null);
     const canvasRef = useRef(null);
@@ -18,7 +20,6 @@ function Megamap(props) {
     const countyLabelRef = useRef(null);
     const audioRef = useRef(null);
     const [shouldRerender, setShouldRerender] = useState(true);
-
 
     useEffect(() => {
         function handleResize() {
@@ -38,7 +39,7 @@ function Megamap(props) {
                 left: midX - newWidth / 2,
                 top: compRect.top,
                 width: newWidth,
-                height : newHeight
+                height: newHeight
             });
         }
 
@@ -48,7 +49,7 @@ function Megamap(props) {
         window.addEventListener('resize', handleResize);
 
         // clean-up
-        return ()=> {
+        return () => {
             window.removeEventListener('resize', handleResize);
             //window.removeEventListener('orientationchange', handleResize);
         }
@@ -66,6 +67,12 @@ function Megamap(props) {
         console.log(currentCounty + ' clicked');
         audioRef.current.currentTime = 0;
         audioRef.current.play();
+        if (currentCounty !== undefined) {
+            setSelectedCounty(currentCounty);
+        } else {
+            setSelectedCounty('none');
+        }
+        
     }
 
     const onMouseMove = (event) => {
@@ -103,26 +110,53 @@ function Megamap(props) {
 
     let sizeRatio = mapRect.width / IRELAND_MAP_BASE_WIDTH;
     const countyComponents = county_data.map((county) => {
-        var highlighted = currentCounty === county.name ? true : false;
-        if (highlighted) {
+        let highlighted = currentCounty === county.name ? true : false;
+        let selected = selectedCounty === county.name ? true : false;
+        let backgrounded = false;
+        if (!selected) {
+            if (selectedCounty != 'none') {
+                backgrounded = true;
+            }
             return (
                 <React.Fragment key={county.name + '_key'}>
-                    <CountyTile
+                    <CountyTile2
                         name={county.name}
                         source={county.name + '_mono'}
                         top={county.top * sizeRatio}
                         left={county.left * sizeRatio}
+                        mapLeft={mapRect.left}
+                        mapTop={mapRect.top}
                         width={county.width * sizeRatio}
                         height={county.height * sizeRatio}
                         highlighted={highlighted}
+                        backgrounded={backgrounded}
+                        handleClick={() => handleClick()}
+                    />
+                </React.Fragment>
+            );
+        } else {
+            let ratio = mapRect.width / (county.width * sizeRatio) * 0.5;
+            let expandedWidth = mapRect.width;
+            let expandedHeight = county.height * ratio;
+            return (
+                <React.Fragment key={county.name + '_key'}>
+                    <CountyTile2
+                        name={county.name}
+                        source={county.name + '_mono'}
+                        top={0}
+                        left={0}
+                        width={expandedWidth}
+                        height={expandedHeight}
+                        highlighted={highlighted}
+                        backgrounded={backgrounded}
                         handleClick={() => handleClick()}
                     />
                 </React.Fragment>
             );
         }
-        
+
     });
-    
+
     return (
         <div className='megamap' ref={componentReference} onMouseMove={onMouseMove}>
             <div>
@@ -131,36 +165,36 @@ function Megamap(props) {
                     style={{
                         position: 'absolute',
                         left: mapRect.left,
-                        top: mapRect.top, 
+                        top: mapRect.top,
                         width: mapRect.width,
                         height: mapRect.height,
                         backgroundColor: '#444444cc',
-                        opacity: 0.8,
+                        opacity: 0.0,
                     }} />
             </div>
-            <div id='main_div' 
-                className='ireland_map_div' 
+            <div id='main_div'
+                className='ireland_map_div'
                 ref={mainDivRef}
-                style = {{
-                    position : 'absolute',
-                    left : mapRect.left, 
-                    top : mapRect.top,
-                    width : mapRect.width,
-                    height : mapRect.height
+                style={{
+                    position: 'absolute',
+                    left: mapRect.left,
+                    top: mapRect.top,
+                    width: mapRect.width,
+                    height: mapRect.height
                 }}>
                 {countyComponents}
             </div>
-            <div id='county_label' 
-                 ref={countyLabelRef}
-                 style={{
-                     position: 'absolute',
-                     left: mapRect.left + 10,
-                     top: mapRect.top + 10, 
+            <div id='county_label'
+                ref={countyLabelRef}
+                style={{
+                    position: 'absolute',
+                    left: mapRect.left + 10,
+                    top: mapRect.top + 10,
                     //  color: '#33727b',
-                     color: 'silver',
-                 }}>
+                    color: 'silver',
+                }}>
                 <h2>
-                    {currentCounty === undefined ? 
+                    {currentCounty === undefined ?
                         'Pick county' :
                         currentCounty.charAt(0).toUpperCase() + currentCounty.slice(1)}
                 </h2>
@@ -169,7 +203,7 @@ function Megamap(props) {
 
             }}>
                 <audio id='audio_player' ref={audioRef}>
-                    <source src='/audio/test_file2.mp3' type='audio/mp3'/>
+                    <source src='/audio/test_file2.mp3' type='audio/mp3' />
                 </audio>
             </div>
             <div style={{ display: 'none' }}>

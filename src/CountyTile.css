@@ -1,4 +1,9 @@
-
 .county_image {
-    transition: opacity 1.0s ease-in-out;
+    transition-property: opacity, left, top, width, height;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+.county_label {
+    position: absolute;
 }
