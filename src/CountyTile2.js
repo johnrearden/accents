@@ -7,8 +7,10 @@ const CountyTile = (props) => {
     const canvasRef = useRef(null);
     const originalWidth = useRef(0);
     const originalHeight = useRef(0);
-    //console.log(props.name + ' running');f
-    const source = '/images/counties_mono/' + props.source + '.png';
+    let source = '/images/counties_mono/' + props.source + '.png';
+    if (props.name == 'cork') {
+       source = '/images/counties_mono/cork_green_gradient_oil.png';
+    }
     let opac = 0.4;
     if (props.highlighted) {
         opac = 1.0;
@@ -30,6 +32,33 @@ const CountyTile = (props) => {
     }
 
     const onMouseMove = (event) => {
+        if (props == null) {
+            console.log('props are null! ... doing snothing' );
+            return;
+        }
+        if (contextRef.current && props.expanded) {
+            let pixelData = getPointerPixelData(event);
+            console.log('mouse moving on expanded ' + props.name 
+                + ', data == ' + pixelData);
+            if (pixelData == 255) {
+                
+            } 
+        }
+    }
+
+    const onClick = (event) => {
+        if (props.expanded) {
+            let pixelData = getPointerPixelData(event);
+            console.log('clicked - data == ' + pixelData);
+            if (pixelData != 255) {
+                props.onFocusLost();
+            }
+        } else {
+            props.handleClick();
+        }
+    }
+
+    const getPointerPixelData = (event) => {
         let canvas = canvasRef.current;
         let context = contextRef.current;
         let xPos = event.clientX - props.left - props.mapLeft;
@@ -40,14 +69,9 @@ const CountyTile = (props) => {
 
         if (!(modelX >= 0 && modelY <= canvas.width)) modelX = 0;
         if (!(modelX >= 0 && modelY <= canvas.height)) modelY = 0;
-        if (context) {
-            let rc = context.getImageData(modelX, modelY, 1, 1);
-            console.log(props.name + ' rc == ' + rc.data[3] + '('
-                + modelX + ',' + modelY + ')');
-            console.log('xPos ==' + xPos + ', yPos = ' + yPos);
-            console.log('canvas.width == ' + canvas.width + ', canvas.height == ' + canvas.height);
-        }
 
+        let rc = context.getImageData(modelX, modelY, 1, 1);
+        return rc.data[3];
     }
 
     return (
@@ -55,9 +79,14 @@ const CountyTile = (props) => {
             <img src={source}
                 className='county_image' alt='Map of County'
                 onClick={(event) => {
-                    props.handleClick()
+                    onClick(event);
                 }}
-                onTouchEnd={props.handleClick}
+                onTouchEnd={(event) => {
+                    onClick(event);
+                }}
+                onMouseMove={(event) => {
+                    onMouseMove(event);
+                }}
                 style={{
                     position: 'absolute',
                     top: props.top,

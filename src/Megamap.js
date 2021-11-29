@@ -13,7 +13,7 @@ function Megamap(props) {
     const [selectedCounty, setSelectedCounty] = useState('none');
     const [mapRect, setMapRect] = useState({ left: 0, top: 0, width: 0, height: 0 });
     const componentReference = useRef(null);
-    const mapReference = useRef(null);
+    const expandedModeRef = useRef(false);
     const canvasRef = useRef(null);
     const hiddenImageRef = useRef(null);
     const mainDivRef = useRef(null);
@@ -63,19 +63,30 @@ function Megamap(props) {
     }, [shouldRerender]);
 
     const handleClick = (county) => {
-        //props.onclick();
-        console.log(currentCounty + ' clicked');
-        audioRef.current.currentTime = 0;
-        audioRef.current.play();
-        if (currentCounty !== undefined) {
-            setSelectedCounty(currentCounty);
-        } else {
-            setSelectedCounty('none');
+        console.log(currentCounty + ' clicked (expandedMode == '
+            + expandedModeRef.current + ')');
+        if (expandedModeRef.current == false) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.play();
+            if (currentCounty !== undefined) {
+                setSelectedCounty(currentCounty);
+                expandedModeRef.current = true;
+            } else {
+                setSelectedCounty('none');
+            }
         }
-        
+    }
+
+    const expandedCountyLostFocus = () => {
+        console.log('expanded county lost focus');
+        expandedModeRef.current = false;
+        setSelectedCounty('none');
     }
 
     const onMouseMove = (event) => {
+        if (expandedModeRef.current == true) {
+            return;
+        }
         let canvas = canvasRef.current;
         let modelContext = canvas.getContext('2d');
         let xPos = event.clientX - mapRect.left;
@@ -104,10 +115,6 @@ function Megamap(props) {
         );
     }
 
-    const calculateExpandedSize = (county) => {
-
-    }
-
     let sizeRatio = mapRect.width / IRELAND_MAP_BASE_WIDTH;
     const countyComponents = county_data.map((county) => {
         let highlighted = currentCounty === county.name ? true : false;
@@ -130,26 +137,33 @@ function Megamap(props) {
                         height={county.height * sizeRatio}
                         highlighted={highlighted}
                         backgrounded={backgrounded}
+                        expanded={false}
                         handleClick={() => handleClick()}
                     />
                 </React.Fragment>
             );
         } else {
-            let ratio = mapRect.width / (county.width * sizeRatio) * 0.5;
-            let expandedWidth = mapRect.width;
-            let expandedHeight = county.height * ratio;
+            let expandedWidth = mapRect.width * 0.8;
+            let ratio = expandedWidth / (county.width * sizeRatio);
+            let expandedHeight = county.height * sizeRatio * ratio;
+            let expandedLeft = (mapRect.width / 2) - (expandedWidth / 2);
+            let expandedTop = (mapRect.height / 2) - (expandedHeight / 2);
             return (
                 <React.Fragment key={county.name + '_key'}>
                     <CountyTile2
                         name={county.name}
                         source={county.name + '_mono'}
-                        top={0}
-                        left={0}
+                        top={expandedTop}
+                        left={expandedLeft}
+                        mapLeft={mapRect.left}
+                        mapTop={mapRect.top}
                         width={expandedWidth}
                         height={expandedHeight}
                         highlighted={highlighted}
                         backgrounded={backgrounded}
+                        expanded={true}
                         handleClick={() => handleClick()}
+                        onFocusLost={() => expandedCountyLostFocus()}
                     />
                 </React.Fragment>
             );
