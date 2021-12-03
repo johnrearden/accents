@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { county_red_codes } from './data/county_red_codes';
-import { county_data } from './data/county_data';
+import { coordinates } from './data/coordinates';
 import CountySegment from './CountySegment.js';
 import CountyTile from './CountyTile.js';
 import CountyTile2 from './CountyTile2.js';
@@ -20,6 +20,7 @@ function Megamap(props) {
     const countyLabelRef = useRef(null);
     const audioRef = useRef(null);
     const [shouldRerender, setShouldRerender] = useState(true);
+    const county_data = coordinates;
 
     useEffect(() => {
         function handleResize() {
@@ -67,7 +68,7 @@ function Megamap(props) {
             + expandedModeRef.current + ')');
         if (expandedModeRef.current == false) {
             audioRef.current.currentTime = 0;
-            audioRef.current.play();
+            //audioRef.current.play();
             if (currentCounty !== undefined) {
                 setSelectedCounty(currentCounty);
                 expandedModeRef.current = true;
@@ -128,7 +129,7 @@ function Megamap(props) {
                 <React.Fragment key={county.name + '_key'}>
                     <CountyTile2
                         name={county.name}
-                        source={county.name + '_mono'}
+                        source={county.name}
                         top={county.top * sizeRatio}
                         left={county.left * sizeRatio}
                         mapLeft={mapRect.left}
@@ -143,7 +144,10 @@ function Megamap(props) {
                 </React.Fragment>
             );
         } else {
-            let expandedWidth = mapRect.width * 0.8;
+            let expandedWidth = mapRect.width * 1.0;
+            if (expandedWidth > county.width * sizeRatio * 4) {
+                expandedWidth = county.width * sizeRatio * 4;
+            }
             let ratio = expandedWidth / (county.width * sizeRatio);
             let expandedHeight = county.height * sizeRatio * ratio;
             let expandedLeft = (mapRect.width / 2) - (expandedWidth / 2);
@@ -152,7 +156,7 @@ function Megamap(props) {
                 <React.Fragment key={county.name + '_key'}>
                     <CountyTile2
                         name={county.name}
-                        source={county.name + '_mono'}
+                        source={county.name}
                         top={expandedTop}
                         left={expandedLeft}
                         mapLeft={mapRect.left}
@@ -174,7 +178,7 @@ function Megamap(props) {
     return (
         <div className='megamap' ref={componentReference} onMouseMove={onMouseMove}>
             <div>
-                <img src='/images/ireland_maps/counties_monochrome_2.png'
+                <img src='/images/ireland_maps/counties_monochrome.png'
                     alt='count_mono.png'
                     style={{
                         position: 'absolute',
@@ -182,7 +186,7 @@ function Megamap(props) {
                         top: mapRect.top,
                         width: mapRect.width,
                         height: mapRect.height,
-                        backgroundColor: '#444444cc',
+                        // backgroundColor: '#444444cc',
                         opacity: 0.0,
                     }} />
             </div>

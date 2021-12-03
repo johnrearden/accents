@@ -1,8 +1,11 @@
 export const OPACITY_INCREMENT = 0.035;
 export const OPACITY_DECREMENT = 0.1;
-export const IRELAND_MAP_BASE_WIDTH = 728;
-export const IRELAND_MAP_BASE_HEIGHT = 906;
-export const IRELAND_MAP_BASE_RATIO = 0.8035;
+// export const IRELAND_MAP_BASE_WIDTH = 728;
+// export const IRELAND_MAP_BASE_HEIGHT = 906; old map
+export const IRELAND_MAP_BASE_WIDTH = 1426;
+export const IRELAND_MAP_BASE_HEIGHT = 1824;
+// export const IRELAND_MAP_BASE_RATIO = 0.8035; old map
+export const IRELAND_MAP_BASE_RATIO = 0.7818; // new map
 
 export const COUNTY_NAMES = new Map([
     ['Munster', ['Cork','Kerry','Limerick','Waterford','Tipperary','Clare']],

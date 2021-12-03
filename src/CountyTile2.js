@@ -8,14 +8,11 @@ const CountyTile = (props) => {
     const originalWidth = useRef(0);
     const originalHeight = useRef(0);
     let source = '/images/counties_mono/' + props.source + '.png';
-    if (props.name == 'cork') {
-       source = '/images/counties_mono/cork_green_gradient_oil.png';
-    }
-    let opac = 0.4;
+    let opac = 1.0;
     if (props.highlighted) {
         opac = 1.0;
     } else if (props.backgrounded) {
-        opac = 0.2;
+        opac = 0.1;
     }
 
     const onImageLoad = () => {
