@@ -1,11 +1,11 @@
 export const coordinates = [
-    {
-        name : 'ireland',
-        top : 0,
-        left : 0,
-        width : 1426,
-        height : 1824
-    },
+    // {
+    //     name : 'ireland',
+    //     top : 0,
+    //     left : 0,
+    //     width : 1426,
+    //     height : 1824
+    // },
     {
         name : 'cork',
         top : 1364,

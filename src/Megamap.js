@@ -129,7 +129,10 @@ function Megamap(props) {
                 <React.Fragment key={county.name + '_key'}>
                     <CountyTile2
                         name={county.name}
+                        sizeRatio={sizeRatio}
                         source={county.name}
+                        absTop={county.top}
+                        absLeft={county.left}
                         top={county.top * sizeRatio}
                         left={county.left * sizeRatio}
                         mapLeft={mapRect.left}
@@ -149,6 +152,7 @@ function Megamap(props) {
                 expandedWidth = county.width * sizeRatio * 4;
             }
             let ratio = expandedWidth / (county.width * sizeRatio);
+            console.log('ratio == ' + ratio);
             let expandedHeight = county.height * sizeRatio * ratio;
             let expandedLeft = (mapRect.width / 2) - (expandedWidth / 2);
             let expandedTop = (mapRect.height / 2) - (expandedHeight / 2);
@@ -156,6 +160,10 @@ function Megamap(props) {
                 <React.Fragment key={county.name + '_key'}>
                     <CountyTile2
                         name={county.name}
+                        expandedRatio={ratio}
+                        sizeRatio={sizeRatio}
+                        absTop={county.top}
+                        absLeft={county.left}
                         source={county.name}
                         top={expandedTop}
                         left={expandedLeft}
@@ -178,7 +186,7 @@ function Megamap(props) {
     return (
         <div className='megamap' ref={componentReference} onMouseMove={onMouseMove}>
             <div>
-                <img src='/images/ireland_maps/counties_monochrome.png'
+                {/* <img src='/images/ireland_maps/counties_monochrome.png'
                     alt='count_mono.png'
                     style={{
                         position: 'absolute',
@@ -188,7 +196,7 @@ function Megamap(props) {
                         height: mapRect.height,
                         // backgroundColor: '#444444cc',
                         opacity: 0.0,
-                    }} />
+                    }} /> */}
             </div>
             <div id='main_div'
                 className='ireland_map_div'
@@ -226,7 +234,7 @@ function Megamap(props) {
             </div>
             <div style={{ display: 'none' }}>
                 <canvas ref={canvasRef} width='400' height='498' />
-                <img src='/images//ireland_maps/counties_model.png'
+                <img src='/images/ireland_maps/counties_model.png'
                     ref={hiddenImageRef}
                     alt='alt'
                     onLoad={onModelImageLoad} />
