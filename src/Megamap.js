@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { county_red_codes } from './data/county_red_codes';
 import { coordinates } from './data/coordinates';
-import CountySegment from './CountySegment.js';
 import CountyTile from './CountyTile.js';
-import CountyTile2 from './CountyTile2.js';
 import { IRELAND_MAP_BASE_WIDTH } from './data/constants';
 import { IRELAND_MAP_BASE_RATIO } from './data/constants';
 import './Megamap.css';
@@ -117,70 +115,28 @@ function Megamap(props) {
     }
 
     let sizeRatio = mapRect.width / IRELAND_MAP_BASE_WIDTH;
+
     const countyComponents = county_data.map((county) => {
         let highlighted = currentCounty === county.name ? true : false;
         let selected = selectedCounty === county.name ? true : false;
         let backgrounded = false;
-        if (!selected) {
-            if (selectedCounty != 'none') {
-                backgrounded = true;
-            }
-            return (
-                <React.Fragment key={county.name + '_key'}>
-                    <CountyTile2
-                        name={county.name}
-                        sizeRatio={sizeRatio}
-                        source={county.name}
-                        absTop={county.top}
-                        absLeft={county.left}
-                        top={county.top * sizeRatio}
-                        left={county.left * sizeRatio}
-                        mapLeft={mapRect.left}
-                        mapTop={mapRect.top}
-                        width={county.width * sizeRatio}
-                        height={county.height * sizeRatio}
-                        highlighted={highlighted}
-                        backgrounded={backgrounded}
-                        expanded={false}
-                        handleClick={() => handleClick()}
-                    />
-                </React.Fragment>
-            );
-        } else {
-            let expandedWidth = mapRect.width * 1.0;
-            if (expandedWidth > county.width * sizeRatio * 4) {
-                expandedWidth = county.width * sizeRatio * 4;
-            }
-            let ratio = expandedWidth / (county.width * sizeRatio);
-            console.log('ratio == ' + ratio);
-            let expandedHeight = county.height * sizeRatio * ratio;
-            let expandedLeft = (mapRect.width / 2) - (expandedWidth / 2);
-            let expandedTop = (mapRect.height / 2) - (expandedHeight / 2);
-            return (
-                <React.Fragment key={county.name + '_key'}>
-                    <CountyTile2
-                        name={county.name}
-                        expandedRatio={ratio}
-                        sizeRatio={sizeRatio}
-                        absTop={county.top}
-                        absLeft={county.left}
-                        source={county.name}
-                        top={expandedTop}
-                        left={expandedLeft}
-                        mapLeft={mapRect.left}
-                        mapTop={mapRect.top}
-                        width={expandedWidth}
-                        height={expandedHeight}
-                        highlighted={highlighted}
-                        backgrounded={backgrounded}
-                        expanded={true}
-                        handleClick={() => handleClick()}
-                        onFocusLost={() => expandedCountyLostFocus()}
-                    />
-                </React.Fragment>
-            );
+        if (selectedCounty != 'none' && !selected) {
+            backgrounded = true;
         }
-
+        return (
+            <React.Fragment key={county.name + '_key'}>
+                <CountyTile
+                    name={county.name}
+                    sizeRatio={sizeRatio}
+                    mapRect={mapRect}
+                    highlighted={highlighted}
+                    backgrounded={backgrounded}
+                    expanded={selected}
+                    handleClick={() => handleClick()}
+                    onFocusLost={() => expandedCountyLostFocus()}
+                />
+            </React.Fragment>
+        );
     });
 
     return (
