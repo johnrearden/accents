@@ -5,10 +5,10 @@
 }
 
 .county_label {
-    transition-property: opacity, left, top, width, height;
+    position: absolute;
+    transition-property: opacity;
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
-    position: absolute;
 }
 
 .location_buttons {

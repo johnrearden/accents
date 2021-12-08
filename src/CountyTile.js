@@ -69,7 +69,7 @@ const CountyTile = (props) => {
             <div className='county_label'
                 style={{
                     position: 'absolute',
-                    top: top + height / 2,
+                    top: top + height,
                     left: left + width / 4,
                     color: 'white',
                     fontSize: textSize,

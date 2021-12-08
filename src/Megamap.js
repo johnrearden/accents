@@ -153,7 +153,7 @@ function Megamap(props) {
                 }}>
                 {countyComponents}
             </div>
-            <div id='county_label'
+            {/* <div id='county_label'
                 ref={countyLabelRef}
                 style={{
                     position: 'absolute',
@@ -167,7 +167,7 @@ function Megamap(props) {
                         'Pick county' :
                         currentCounty.charAt(0).toUpperCase() + currentCounty.slice(1)}
                 </h2>
-            </div>
+            </div> */}
             <div style={{
 
             }}>
