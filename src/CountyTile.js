@@ -16,6 +16,11 @@ const CountyTile = (props) => {
         props.onFocusLost();
     }
 
+    const onAccentSelected = (loc, url) => {
+        console.log('An accent location (' + loc + ') was clicked - url == ' + url);
+        props.playAudioClip(url);
+    }
+
     let source = '/images/counties_mono/' + props.name + '.png';
     let coords = county_data.get(props.name);
     let top = coords.top * props.sizeRatio;
@@ -25,7 +30,6 @@ const CountyTile = (props) => {
     let textSize = (Math.round(props.mapRect.width * .05)).toString() + 'px';
     let ratio = 1.0;
     if (props.expanded) {
-        console.log(props.name + ' is expanded');
         let expandedWidth = props.mapRect.width * 1.0;
         if (expandedWidth > width * 4) {
             expandedWidth = width * 4;
@@ -90,6 +94,7 @@ const CountyTile = (props) => {
                                 width={width}
                                 height={height}
                                 expanded={props.expanded}
+                                onAccentSelected={onAccentSelected}
                 />
             </div>
             <div>
@@ -98,11 +103,11 @@ const CountyTile = (props) => {
                             opacity: props.expanded ? 1.0 : 0.0,
                             border: 'none',
                             fontSize: textSize,
-                            left: width - 100,
-                            top: top + height * 0.9,
+                            left: left + width - width / 5,
+                            top: top + height,
                             zIndex: 4}}
                         onClick={onCloseButtonClicked}>
-                            x close
+                            close
                 </button>
             </div>
         </div>

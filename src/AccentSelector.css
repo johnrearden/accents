@@ -1,0 +1,15 @@
+.accent_location {
+    color: #aaaaaa;
+}
+
+.accent_location:hover {
+    color: white;
+}
+
+.accent_button {
+    background: #aaaaaa;
+}
+
+.accent_location:hover .accent_button{
+    background: white;
+}

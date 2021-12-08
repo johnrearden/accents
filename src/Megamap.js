@@ -61,12 +61,14 @@ function Megamap(props) {
         }
     }, [shouldRerender]);
 
+    const playAudioClip = (url) => {
+        console.log('url is ' + url);
+        audioRef.current.src = url;
+        audioRef.current.play();
+    }
+
     const handleClick = (county) => {
-        console.log(currentCounty + ' clicked (expandedMode == '
-            + expandedModeRef.current + ')');
         if (expandedModeRef.current == false) {
-            audioRef.current.currentTime = 0;
-            //audioRef.current.play();
             if (currentCounty !== undefined) {
                 setSelectedCounty(currentCounty);
                 expandedModeRef.current = true;
@@ -80,6 +82,7 @@ function Megamap(props) {
         console.log('expanded county lost focus');
         expandedModeRef.current = false;
         setSelectedCounty('none');
+        setCurrentCounty('none');
     }
 
     const onMouseMove = (event) => {
@@ -134,6 +137,7 @@ function Megamap(props) {
                     expanded={selected}
                     handleClick={() => handleClick()}
                     onFocusLost={() => expandedCountyLostFocus()}
+                    playAudioClip={(url) => playAudioClip(url)}
                 />
             </React.Fragment>
         );

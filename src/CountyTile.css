@@ -6,17 +6,9 @@
 
 .county_label {
     position: absolute;
-    transition-property: opacity;
+    /* transition-property: opacity, left, top;
     transition-duration: 0.3s;
-    transition-timing-function: ease-in-out;
-}
-
-.location_buttons {
-    color: 'blue'
-}
-
-.location_buttons:hover {
-    color: blue;
+    transition-timing-function: ease-in-out; */
 }
 
 .close_button {

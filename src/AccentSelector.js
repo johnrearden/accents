@@ -1,7 +1,7 @@
 import React from 'react';
 import { accentLocations } from './data/accent_locations.js';
 import { calculateXPos, calculateYPos } from './utilities/PositionTranslator';
-
+import './AccentSelector.css';
 
 const AccentSelector = (props) => {
     let locationList = [];
@@ -23,16 +23,28 @@ const AccentSelector = (props) => {
         });
     }
 
+    const onAccentClicked = (loc, url) => {
+        if (props.expanded) {
+            props.onAccentSelected(loc, url);
+        } else {
+            console.log('expanded: ' + props.expanded)
+        }
+    };
+
     const locationButtons = locationList.map((location) => {
         let expansionRatio = props.expanded ? props.expandedRatio : 1.0;
         let xPos = props.left + location.adjustedX * props.sizeRatio * expansionRatio;
         let yPos = props.top + location.adjustedY * props.sizeRatio * expansionRatio;
-        let textSize = Math.round(props.height * expansionRatio / 75);
-        let buttonSize = Math.round(props.height * expansionRatio / 150);
+        let textSize = Math.round(props.height * expansionRatio / 60);
+        let buttonSize = Math.round(props.height * expansionRatio / 120);
+        let url = location.clip_url;
         return (
             <React.Fragment key={location.name}>
-                <div>
-                    <div style={{
+                <div className='accent_location'
+                    onClick={(event) => {
+                            onAccentClicked(location.name, url)}}>
+                    <div className='accent_button'
+                        style={{
                         transitionProperty: 'opacity, left, top, width, height',
                         transitionDuration: '0.3s',
                         transitionTimingFunction: 'ease-in-out',
@@ -42,7 +54,6 @@ const AccentSelector = (props) => {
                         left: xPos - 3,
                         top: yPos - 3,
                         borderRadius: '50%',
-                        background: 'white',
                         zIndex: 11,
                         opacity: props.expanded ? 1.0 : 0.0,
                     }}>
