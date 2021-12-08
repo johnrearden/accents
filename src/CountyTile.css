@@ -5,6 +5,9 @@
 }
 
 .county_label {
+    transition-property: opacity, left, top, width, height;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
     position: absolute;
 }
 
@@ -14,4 +17,17 @@
 
 .location_buttons:hover {
     color: blue;
+}
+
+.close_button {
+    transition-property: opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    background: transparent;
+    color: #bbbbbb;
+    position: absolute;
+}
+
+.close_button:hover {
+    color: white
 }

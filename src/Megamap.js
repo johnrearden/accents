@@ -141,19 +141,6 @@ function Megamap(props) {
 
     return (
         <div className='megamap' ref={componentReference} onMouseMove={onMouseMove}>
-            <div>
-                {/* <img src='/images/ireland_maps/counties_monochrome.png'
-                    alt='count_mono.png'
-                    style={{
-                        position: 'absolute',
-                        left: mapRect.left,
-                        top: mapRect.top,
-                        width: mapRect.width,
-                        height: mapRect.height,
-                        // backgroundColor: '#444444cc',
-                        opacity: 0.0,
-                    }} /> */}
-            </div>
             <div id='main_div'
                 className='ireland_map_div'
                 ref={mainDivRef}
