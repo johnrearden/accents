@@ -119,32 +119,73 @@ function Megamap(props) {
 
     let sizeRatio = mapRect.width / IRELAND_MAP_BASE_WIDTH;
 
-    const countyComponents = county_data.map((county) => {
+    const visibleCounties = [];
+    county_data.forEach((county) => {
         let highlighted = currentCounty === county.name ? true : false;
         let selected = selectedCounty === county.name ? true : false;
         let backgrounded = false;
         if (selectedCounty != 'none' && !selected) {
             backgrounded = true;
         }
-        return (
-            <React.Fragment key={county.name + '_key'}>
-                <CountyTile
-                    name={county.name}
-                    sizeRatio={sizeRatio}
-                    mapRect={mapRect}
-                    highlighted={highlighted}
-                    backgrounded={backgrounded}
-                    expanded={selected}
-                    handleClick={() => handleClick()}
-                    onFocusLost={() => expandedCountyLostFocus()}
-                    playAudioClip={(url) => playAudioClip(url)}
-                />
-            </React.Fragment>
-        );
+        if (highlighted) {
+            visibleCounties.push(
+                <React.Fragment key={county.name + '_key'}>
+                    <CountyTile
+                        name={county.name}
+                        sizeRatio={sizeRatio}
+                        mapRect={mapRect}
+                        highlighted={highlighted}
+                        backgrounded={backgrounded}
+                        expanded={selected}
+                        handleClick={() => handleClick()}
+                        onFocusLost={() => expandedCountyLostFocus()}
+                        playAudioClip={(url) => playAudioClip(url)}
+                    />
+                </React.Fragment>
+            )
+        }
     });
+
+    // const countyComponents = county_data.map((county) => {
+    //     let highlighted = currentCounty === county.name ? true : false;
+    //     let selected = selectedCounty === county.name ? true : false;
+    //     let backgrounded = false;
+    //     if (selectedCounty != 'none' && !selected) {
+    //         backgrounded = true;
+    //     }
+    //     if (!highlighted) return;
+    //     return (
+    //         <React.Fragment key={county.name + '_key'}>
+    //             <CountyTile
+    //                 name={county.name}
+    //                 sizeRatio={sizeRatio}
+    //                 mapRect={mapRect}
+    //                 highlighted={highlighted}
+    //                 backgrounded={backgrounded}
+    //                 expanded={selected}
+    //                 handleClick={() => handleClick()}
+    //                 onFocusLost={() => expandedCountyLostFocus()}
+    //                 playAudioClip={(url) => playAudioClip(url)}
+    //             />
+    //         </React.Fragment>
+    //     );
+    // });
+
+    console.log(visibleCounties.length);
 
     return (
         <div className='megamap' ref={componentReference} onMouseMove={onMouseMove}>
+            <div className='background_map'>
+                <img src='/images/ireland_maps/ireland_base.png'
+                    style={{
+                        position: 'absolute',
+                        left: mapRect.left,
+                        top: mapRect.top,
+                        width: mapRect.width,
+                        height: mapRect.height,
+                        opacity: 0.8,
+                    }}></img>
+            </div>
             <div id='main_div'
                 className='ireland_map_div'
                 ref={mainDivRef}
@@ -155,7 +196,7 @@ function Megamap(props) {
                     width: mapRect.width,
                     height: mapRect.height
                 }}>
-                {countyComponents}
+                {visibleCounties}
             </div>
             {/* <div id='county_label'
                 ref={countyLabelRef}
@@ -172,9 +213,7 @@ function Megamap(props) {
                         currentCounty.charAt(0).toUpperCase() + currentCounty.slice(1)}
                 </h2>
             </div> */}
-            <div style={{
-
-            }}>
+            <div>
                 <audio id='audio_player' ref={audioRef}>
                     <source src='/audio/test_file2.mp3' type='audio/mp3' />
                 </audio>
