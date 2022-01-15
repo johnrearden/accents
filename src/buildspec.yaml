@@ -1,0 +1,21 @@
+# configuration file for Amazon codepipeline
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - npm install
+  build:
+    commands:
+      - echo Build starting on `date`
+      - echo Compiling
+      - npm run build
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files: 
+    - public/**/*
+    - src/**/*
+    - package.json
+    - appspec.yml
+    - scripts/**/*
