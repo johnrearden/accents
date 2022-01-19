@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Redirect } from 'react-router';
-import { county_data } from './data/county_data';
+import { county_data } from './data/county_data.js';
+import { coordinates } from './data/coordinates';
 import QuizOptions from './QuizOptions.js';
 import './QuizWidget.css';
 
@@ -20,7 +21,7 @@ let running = false;
 
 function QuizWidget(props) {
     const [remainingQs, getRemainingQs] = useState(props.totalNumQs);
-    const countyList = county_data.map(county => county.name);
+    const countyList = coordinates.map(county => county.name);
     const [totalAnswered, setTotalAnswered] = useState(0);
     const [totalCorrect, setTotalCorrect] = useState(0);
     const [userMessage, setUserMessage] = useState('Guess the county ...');
@@ -40,7 +41,7 @@ function QuizWidget(props) {
         }
     }
 
-    // Function to handle callback from QuizOptions when it's ready
+    // Function to handle callback from QuizOptions when it's ready 
     // for another question
     const onReadyForNewQuestion = () => {
         if (running) {
