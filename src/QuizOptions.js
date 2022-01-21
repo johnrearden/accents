@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Redirect } from 'react-router';
-import { county_data } from './data/county_data';
 import './QuizOptions.css';
 
 const BACKGROUND_IMAGE_CORRECT = 'radial-gradient(#7777ff, #777799)'

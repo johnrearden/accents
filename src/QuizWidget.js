@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
-import { county_data } from './data/county_data.js';
 import { coordinates } from './data/coordinates';
 import QuizOptions from './QuizOptions.js';
 import './QuizWidget.css';
@@ -16,7 +15,6 @@ const wrongSoundSource = '/audio/wrong_buzz.mp3';
 
 // Variables without re-render on mutation.
 let correctIndex = -1;
-let currentChoices = [];
 let running = false;
 
 function QuizWidget(props) {

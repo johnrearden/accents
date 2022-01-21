@@ -1,14 +1,12 @@
-import zIndex from '@material-ui/core/styles/zIndex';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import './CountyTile.css';
 import AccentSelector from './AccentSelector.js';
-import { accentLocations } from './data/accent_locations.js'
 import { county_data } from './data/county_data.js'
-import { calculateXPos, calculateYPos } from './utilities/PositionTranslator';
 
 const CountyTile = (props) => {
     
     const onClick = (event) => {
+        console.log(props.name + ' clicked');
         props.handleClick();
     }
 
@@ -50,6 +48,7 @@ const CountyTile = (props) => {
     } else if (props.backgrounded) {
         opac = 0.2; 
     } 
+    let zIndex = props.highlighted ? 3 : 2;
 
     return (
         <div className='county_tile'>
@@ -68,7 +67,7 @@ const CountyTile = (props) => {
                     width: width,
                     height: height,
                     opacity: opac,
-                    zIndex: props.highlighted ? 3 : 1,
+                    zIndex: zIndex,
                 }} />
             <div className='county_label'
                 style={{
@@ -105,7 +104,7 @@ const CountyTile = (props) => {
                             fontSize: textSize,
                             left: left + width - width / 5,
                             top: top + height,
-                            zIndex: 4}}
+                            zIndex: props.expanded ? 4 : 1}}
                         onClick={onCloseButtonClicked}>
                             close
                 </button>

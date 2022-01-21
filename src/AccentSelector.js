@@ -8,15 +8,15 @@ const AccentSelector = (props) => {
     if (accentLocations.get(props.name)) {
         locationList = accentLocations.get(props.name);
     }
-    if (props.name == 'cork') {
+    if (props.name === 'cork') {
         locationList.forEach((loc) => {
             let xLoc = loc.adjustedX;
-            if (xLoc = -1) {
+            if (xLoc === -1) {
                 xLoc = calculateXPos(loc.long);
                 loc.adjustedX = xLoc - props.absLeft;
             }
             let yLoc = loc.adjustedY;
-            if (yLoc = -1) {
+            if (yLoc === -1) {
                 yLoc = calculateYPos(loc.lat);
                 loc.adjustedY = yLoc - props.absTop;
             }

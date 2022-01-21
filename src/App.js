@@ -1,9 +1,8 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route, NavLink, NavBar } from 'react-router-dom';
 import './App.css';
 import Megamap from './Megamap.js';
 import QuizWidget from './QuizWidget.js'
-import {calculateXPos, calculateYPos} from './utilities/PositionTranslator';
 
 const handleClick = (county) => {
   console.log('App component cldicked');
@@ -96,14 +95,14 @@ const locations = [
 const Nav = () => (
   <div className='header'>
     <div className='app_name'>
-      <h2>Accents</h2>
+      <h2>irishaccents.ie</h2>
     </div>
     <div>
       <NavLink className='nav_links' exact to='/' activeClassName='active'>
-        Home
+        home
       </NavLink>
       <NavLink className='nav_links' to='/quiz' activeClassName='active'>
-        Quiz
+        quiz
       </NavLink>
     </div>
 
