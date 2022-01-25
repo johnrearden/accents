@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, NavLink, NavBar } from 'react-router-dom';
+import { HashRouter, Switch, Route, NavLink, NavBar } from 'react-router-dom';
 import './App.css';
 import Megamap from './Megamap.js';
 import QuizWidget from './QuizWidget.js'
