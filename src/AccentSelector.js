@@ -35,7 +35,7 @@ const AccentSelector = (props) => {
         let expansionRatio = props.expanded ? props.expandedRatio : 1.0;
         let xPos = props.left + location.adjustedX * props.sizeRatio * expansionRatio;
         let yPos = props.top + location.adjustedY * props.sizeRatio * expansionRatio;
-        let textSize = Math.round(props.height * expansionRatio / 60);
+        let textSize = Math.round(props.height * expansionRatio / 30);
         let buttonSize = Math.round(props.height * expansionRatio / 120);
         let url = location.clip_url;
         return (
