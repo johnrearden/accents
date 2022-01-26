@@ -5,7 +5,14 @@
     /* outline: tomato solid 1px; */
 }
 
-.county_label {
+.county_label{
+    position: absolute;
+    transition-property: opacity, left, top;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+.small_label{
     position: absolute;
     transition-property: opacity, left, top;
     transition-duration: 0.3s;

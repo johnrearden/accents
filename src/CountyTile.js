@@ -42,6 +42,8 @@ const CountyTile = (props) => {
         height = expandedHeight;
         
     }
+    let textLeft = left + width / 2 - props.countyNameTextSize.width / 2;
+    let textTop = top + height / 2 - props.countyNameTextSize.height / 2; 
     let opac = 1.0;
     if (props.highlighted && !props.expanded) {
         opac = 0.8;
@@ -57,9 +59,10 @@ const CountyTile = (props) => {
                 onClick={(event) => {
                     onClick(event);
                 }}
-                onTouchEnd={(event) => {
-                    onClick(event);
-                }}
+                // onTouchEnd={(event) => {
+                //     onClick(event);
+                // }} commented out as was causing double call to parent
+                // and all subsequent clicks on CountyTile to fail.
                 style={{
                     position: 'absolute',
                     top: top,
@@ -76,12 +79,25 @@ const CountyTile = (props) => {
                     left: left + width / 4,
                     color: 'white',
                     fontSize: textSize,
-                    opacity: props.highlighted && !props.expanded? 1.0 : 0.0,
+                    opacity: props.highlighted && !props.expanded ? 1.0 : 0.0,
                     zIndex: 4,
                     pointerEvents: 'none'
                 }}>
                 {props.name}
             </div>
+            <div className='small_label'
+                style={{
+                    position: 'absolute',
+                    top: textTop,
+                    left: textLeft,
+                    fontSize: '8px',
+                    color: 'grey',
+                    zIndex: 6,
+                    opacity: !props.backgrounded ? 1.0 : 0.0,
+                }}>
+                {props.name}
+            </div>
+            
             <div className='location_buttons'>
                 <AccentSelector name={props.name}
                                 expandedRatio={ratio}

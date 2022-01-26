@@ -19,6 +19,7 @@ function Megamap(props) {
     const audioRef = useRef(null);
     const [shouldRerender, setShouldRerender] = useState(true);
     const county_data = coordinates;
+    const countyNameSizeMap = useRef(null);
 
     useEffect(() => {
         function handleResize() {
@@ -40,6 +41,24 @@ function Megamap(props) {
                 width: newWidth,
                 height: newHeight
             });
+
+            // Compute the size of the text of each county name.
+            let tempCanvas = document.createElement('canvas');
+            let context = tempCanvas.getContext('2d');
+            let font = '8px Times New Roman';
+            context.font = font;
+            let sizeMap = new Map();
+            county_data.forEach((county) => {
+                let metrics = context.measureText(county.name);
+                let labelWidth = Math.ceil(metrics.width);
+                let labelHeight = Math.ceil(metrics.actualBoundingBoxAscent 
+                                            + metrics.actualBoundingBoxDescent);
+                sizeMap.set(county.name, {
+                    width: labelWidth,
+                    height: labelHeight
+                });
+            });
+            countyNameSizeMap.current = sizeMap;
         }
 
         handleResize();
@@ -126,11 +145,20 @@ function Megamap(props) {
         if (selectedCounty != 'none' && !selected) {
             backgrounded = true;
         }
+        let textSize = {
+            width: 0,
+            height: 0
+        }
+        if (countyNameSizeMap.current != null) {
+            textSize = countyNameSizeMap.current.get(county.name);
+        }
+        
         // if (!highlighted) return;
         return (
             <React.Fragment key={county.name + '_key'}>
                 <CountyTile
                     name={county.name}
+                    countyNameTextSize={textSize}
                     sizeRatio={sizeRatio}
                     mapRect={mapRect}
                     highlighted={highlighted}
