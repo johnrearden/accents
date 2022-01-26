@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import './QuizOptions.css';
+import './css/QuizOptions.css';
 
 const BACKGROUND_IMAGE_CORRECT = 'radial-gradient(#7777ff, #777799)'
 const BACKGROUND_IMAGE_WRONG = 'radial-gradient(#ff7777, #997777)'

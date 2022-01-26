@@ -13,7 +13,6 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  /* background-color: silver;*/
   position: fixed;
   overflow: hidden;
 }
@@ -24,13 +23,11 @@ body {
   justify-content: space-between;
   align-items: center;
   color:#feda0c;
-  background-color: #33727bcc;
-  background-image: linear-gradient(#20311aaa, #75b161aa);
+  background-image: linear-gradient(#274e18ff, #274e1888);
 }
 
 .app_name {
-  /* color:#feda0c; */
-  color:#75b161aa;
+  font-size: 12px;
   font-weight: bold;
   text-align: left;
   padding-left: 20px;

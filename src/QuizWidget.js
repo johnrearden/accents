@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { coordinates } from './data/coordinates';
 import QuizOptions from './QuizOptions.js';
-import './QuizWidget.css';
+import './css/QuizWidget.css';
 
 const backgroundImageCorrect = 'radial-gradient(#7777ff, #777799)'
 const backgroundImageWrong = 'radial-gradient(#ff7777, #997777)'

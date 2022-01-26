@@ -1,12 +1,12 @@
 import React from 'react';
-import './CountyTile.css';
+import './css/CountyTile.css';
 import AccentSelector from './AccentSelector.js';
 import { county_data } from './data/county_data.js'
 
 const CountyTile = (props) => {
     
     const onClick = (event) => {
-        console.log(props.name + ' clicked');
+        //console.log(props.name + ' clicked');
         props.handleClick();
     }
 
@@ -51,6 +51,9 @@ const CountyTile = (props) => {
         opac = 0.2; 
     } 
     let zIndex = props.highlighted ? 3 : 2;
+    let showSmallLabels = !props.backgrounded && props.showLabel;
+    let labelOpac = showSmallLabels ? 1.0 : 0.0;
+    console.log(labelOpac);
 
     return (
         <div className='county_tile'>
@@ -90,10 +93,10 @@ const CountyTile = (props) => {
                     position: 'absolute',
                     top: textTop,
                     left: textLeft,
-                    fontSize: '8px',
-                    color: 'grey',
-                    zIndex: 6,
-                    opacity: !props.backgrounded ? 1.0 : 0.0,
+                    fontSize: props.countyNameFontSize + 'px',
+                    color: 'white',
+                    zIndex: 10,
+                    opacity: labelOpac,
                 }}>
                 {props.name}
             </div>

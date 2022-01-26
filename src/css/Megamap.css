@@ -7,9 +7,19 @@
     height: 100%;
 }
 
+.show_counties_button {
+  cursor: pointer;
+  background-color: #ffffff00;
+  color: white;
+  padding: 1px 5px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
 @media screen and (max-width: 900px) and (orientation:portrait) {
   .megamap {
     width: 90vw;
     height: 100%;
   }
 }
+

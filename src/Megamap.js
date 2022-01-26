@@ -2,13 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { county_red_codes } from './data/county_red_codes';
 import { coordinates } from './data/coordinates';
 import CountyTile from './CountyTile.js';
+import CountyDropDown from './CountyDropDown.js';
 import { IRELAND_MAP_BASE_WIDTH } from './data/constants';
 import { IRELAND_MAP_BASE_RATIO } from './data/constants';
-import './Megamap.css';
+import './css/Megamap.css';
+
+const COUNTY_NAME_FONT_SIZE = 12;
 
 function Megamap(props) {
     const [currentCounty, setCurrentCounty] = useState(undefined);
     const [selectedCounty, setSelectedCounty] = useState('none');
+    const [showCountyLabels, setShowCountyLabels] = useState(false);
     const [mapRect, setMapRect] = useState({ left: 0, top: 0, width: 0, height: 0 });
     const componentReference = useRef(null);
     const expandedModeRef = useRef(false);
@@ -45,14 +49,14 @@ function Megamap(props) {
             // Compute the size of the text of each county name.
             let tempCanvas = document.createElement('canvas');
             let context = tempCanvas.getContext('2d');
-            let font = '8px Times New Roman';
+            let font = COUNTY_NAME_FONT_SIZE + 'px Times New Roman';
             context.font = font;
             let sizeMap = new Map();
             county_data.forEach((county) => {
                 let metrics = context.measureText(county.name);
                 let labelWidth = Math.ceil(metrics.width);
-                let labelHeight = Math.ceil(metrics.actualBoundingBoxAscent 
-                                            + metrics.actualBoundingBoxDescent);
+                let labelHeight = Math.ceil(metrics.actualBoundingBoxAscent
+                    + metrics.actualBoundingBoxDescent);
                 sizeMap.set(county.name, {
                     width: labelWidth,
                     height: labelHeight
@@ -97,6 +101,11 @@ function Megamap(props) {
         }
     }
 
+    const onShowCountiesClicked = (event) => {
+        console.log('show counties clicked');
+        setShowCountyLabels(current => !current);
+    }
+
     const expandedCountyLostFocus = () => {
         console.log('expanded county lost focus');
         expandedModeRef.current = false;
@@ -138,6 +147,9 @@ function Megamap(props) {
 
     let sizeRatio = mapRect.width / IRELAND_MAP_BASE_WIDTH;
 
+    let countyList = [];
+    county_data.forEach((county) => countyList.push(county.name));
+
     const countyComponents = county_data.map((county) => {
         let highlighted = currentCounty === county.name ? true : false;
         let selected = selectedCounty === county.name ? true : false;
@@ -152,13 +164,15 @@ function Megamap(props) {
         if (countyNameSizeMap.current != null) {
             textSize = countyNameSizeMap.current.get(county.name);
         }
-        
+
         // if (!highlighted) return;
         return (
             <React.Fragment key={county.name + '_key'}>
                 <CountyTile
                     name={county.name}
                     countyNameTextSize={textSize}
+                    countyNameFontSize={COUNTY_NAME_FONT_SIZE}
+                    showLabel={showCountyLabels}
                     sizeRatio={sizeRatio}
                     mapRect={mapRect}
                     highlighted={highlighted}
@@ -186,21 +200,17 @@ function Megamap(props) {
                 }}>
                 {countyComponents}
             </div>
-            {/* <div id='county_label'
-                ref={countyLabelRef}
-                style={{
-                    position: 'absolute',
-                    left: mapRect.left + 10,
-                    top: mapRect.top + 10,
-                    //  color: '#33727b',
-                    color: 'silver',
-                }}>
-                <h2>
-                    {currentCounty === undefined ?
-                        'Pick county' :
-                        currentCounty.charAt(0).toUpperCase() + currentCounty.slice(1)}
-                </h2>
-            </div> */}
+            
+            <div style={{
+                position: 'absolute',
+                left: mapRect.left,
+                top: mapRect.top,
+            }}>
+                <div className='show_counties_button'
+                    onClick={onShowCountiesClicked}>
+                    Show Counties
+                </div>
+            </div>
             <div>
                 <audio id='audio_player' ref={audioRef}>
                     <source src='/audio/test_file2.mp3' type='audio/mp3' />

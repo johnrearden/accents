@@ -1,7 +1,7 @@
 import React from 'react';
 import { accentLocations } from './data/accent_locations.js';
 import { calculateXPos, calculateYPos } from './utilities/PositionTranslator';
-import './AccentSelector.css';
+import './css/AccentSelector.css';
 
 const AccentSelector = (props) => {
     let locationList = [];
