@@ -14,6 +14,7 @@
 
 .small_label{
     position: absolute;
+    color: #aaaaaa;
     transition-property: opacity, left, top;
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;

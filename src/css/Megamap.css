@@ -9,10 +9,10 @@
 
 .show_counties_button {
   cursor: pointer;
-  background-color: #ffffff00;
+  background-color: #ffffff30;
   color: white;
   padding: 1px 5px;
-  border: 1px solid white;
+  border: 1px solid #aaaaaa;
   border-radius: 5px;
 }
 

@@ -7,7 +7,7 @@ import { IRELAND_MAP_BASE_WIDTH } from './data/constants';
 import { IRELAND_MAP_BASE_RATIO } from './data/constants';
 import './css/Megamap.css';
 
-const COUNTY_NAME_FONT_SIZE = 12;
+const COUNTY_NAME_FONT_SIZE = 8;
 
 function Megamap(props) {
     const [currentCounty, setCurrentCounty] = useState(undefined);
@@ -208,7 +208,7 @@ function Megamap(props) {
             }}>
                 <div className='show_counties_button'
                     onClick={onShowCountiesClicked}>
-                    Show Counties
+                    {showCountyLabels ? 'hide text' : 'show text'}
                 </div>
             </div>
             <div>

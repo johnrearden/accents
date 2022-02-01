@@ -25,6 +25,8 @@ const CountyTile = (props) => {
     let left = coords.left * props.sizeRatio;
     let width = coords.width * props.sizeRatio;
     let height = coords.height * props.sizeRatio;
+    let textCenterX = coords.midX * props.sizeRatio;
+    let textCenterY = coords.midY * props.sizeRatio;
     let textSize = (Math.round(props.mapRect.width * .05)).toString() + 'px';
     let ratio = 1.0;
     if (props.expanded) {
@@ -42,8 +44,8 @@ const CountyTile = (props) => {
         height = expandedHeight;
         
     }
-    let textLeft = left + width / 2 - props.countyNameTextSize.width / 2;
-    let textTop = top + height / 2 - props.countyNameTextSize.height / 2; 
+    let textLeft = left + textCenterX - props.countyNameTextSize.width / 2;
+    let textTop = top + textCenterY - props.countyNameTextSize.height / 2; 
     let opac = 1.0;
     if (props.highlighted && !props.expanded) {
         opac = 0.8;
@@ -52,6 +54,7 @@ const CountyTile = (props) => {
     } 
     let zIndex = props.highlighted ? 3 : 2;
     let showSmallLabels = !props.backgrounded && props.showLabel;
+    let showBigLabel = !showSmallLabels && props.highlighted && !props.expanded;
     let labelOpac = showSmallLabels ? 1.0 : 0.0;
     console.log(labelOpac);
 
@@ -82,7 +85,7 @@ const CountyTile = (props) => {
                     left: left + width / 4,
                     color: 'white',
                     fontSize: textSize,
-                    opacity: props.highlighted && !props.expanded ? 1.0 : 0.0,
+                    opacity: showBigLabel ? 1.0 : 0.0,
                     zIndex: 4,
                     pointerEvents: 'none'
                 }}>
@@ -94,7 +97,6 @@ const CountyTile = (props) => {
                     top: textTop,
                     left: textLeft,
                     fontSize: props.countyNameFontSize + 'px',
-                    color: 'white',
                     zIndex: 10,
                     opacity: labelOpac,
                 }}>
