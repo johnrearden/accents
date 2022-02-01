@@ -165,7 +165,6 @@ function Megamap(props) {
             textSize = countyNameSizeMap.current.get(county.name);
         }
 
-        // if (!highlighted) return;
         return (
             <React.Fragment key={county.name + '_key'}>
                 <CountyTile
@@ -207,7 +206,9 @@ function Megamap(props) {
                 top: mapRect.top,
             }}>
                 <div className='show_counties_button'
-                    onClick={onShowCountiesClicked}>
+                    onClick={onShowCountiesClicked}
+                    style={{opacity: expandedModeRef.current ?
+                                    0.0 : 1.0}}>
                     {showCountyLabels ? 'hide text' : 'show text'}
                 </div>
             </div>

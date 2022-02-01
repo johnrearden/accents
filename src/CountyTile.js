@@ -29,6 +29,8 @@ const CountyTile = (props) => {
     let textCenterY = coords.midY * props.sizeRatio;
     let textSize = (Math.round(props.mapRect.width * .05)).toString() + 'px';
     let ratio = 1.0;
+    let textLeft = left + textCenterX - props.countyNameTextSize.width / 2;
+    let textTop = top + textCenterY - props.countyNameTextSize.height / 2; 
     if (props.expanded) {
         let expandedWidth = props.mapRect.width * 1.0;
         if (expandedWidth > width * 4) {
@@ -42,10 +44,10 @@ const CountyTile = (props) => {
         left = expandedLeft;
         width = expandedWidth;
         height = expandedHeight;
-        
+        textLeft = left;
+        textTop = top;
     }
-    let textLeft = left + textCenterX - props.countyNameTextSize.width / 2;
-    let textTop = top + textCenterY - props.countyNameTextSize.height / 2; 
+    
     let opac = 1.0;
     if (props.highlighted && !props.expanded) {
         opac = 0.8;
@@ -55,6 +57,8 @@ const CountyTile = (props) => {
     let zIndex = props.highlighted ? 3 : 2;
     let showSmallLabels = !props.backgrounded && props.showLabel;
     let showBigLabel = !showSmallLabels && props.highlighted && !props.expanded;
+    let smallLabelFontSize = !props.expanded ? 
+        props.countyNameFontSize + 'px' : '20px';
     let labelOpac = showSmallLabels ? 1.0 : 0.0;
     console.log(labelOpac);
 
@@ -65,10 +69,6 @@ const CountyTile = (props) => {
                 onClick={(event) => {
                     onClick(event);
                 }}
-                // onTouchEnd={(event) => {
-                //     onClick(event);
-                // }} commented out as was causing double call to parent
-                // and all subsequent clicks on CountyTile to fail.
                 style={{
                     position: 'absolute',
                     top: top,
@@ -94,11 +94,13 @@ const CountyTile = (props) => {
             <div className='small_label'
                 style={{
                     position: 'absolute',
+                    color: props.expanded ? 'white' : '#aaaaaa',
                     top: textTop,
                     left: textLeft,
-                    fontSize: props.countyNameFontSize + 'px',
+                    fontSize: smallLabelFontSize,
                     zIndex: 10,
                     opacity: labelOpac,
+                    pointerEvents: 'none',
                 }}>
                 {props.name}
             </div>
