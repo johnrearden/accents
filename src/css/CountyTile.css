@@ -26,8 +26,12 @@
     background: transparent;
     color: #bbbbbb;
     position: absolute;
+    border: 1px solid #aaaaaa;
+    border-radius: 5px;
 }
 
 .close_button:hover {
-    color: white
+    color: white;
+    border-color: white;
+    background-color: #ffffff33;
 }

@@ -12,7 +12,7 @@ const COUNTY_NAME_FONT_SIZE = 8;
 function Megamap(props) {
     const [currentCounty, setCurrentCounty] = useState(undefined);
     const [selectedCounty, setSelectedCounty] = useState('none');
-    const [showCountyLabels, setShowCountyLabels] = useState(false);
+    const [showCountyLabels, setShowCountyLabels] = useState(true);
     const [mapRect, setMapRect] = useState({ left: 0, top: 0, width: 0, height: 0 });
     const componentReference = useRef(null);
     const expandedModeRef = useRef(false);
@@ -198,20 +198,23 @@ function Megamap(props) {
                     height: mapRect.height
                 }}>
                 {countyComponents}
-            </div>
-            
-            <div style={{
-                position: 'absolute',
-                left: mapRect.left,
-                top: mapRect.top,
-            }}>
-                <div className='show_counties_button'
-                    onClick={onShowCountiesClicked}
-                    style={{opacity: expandedModeRef.current ?
-                                    0.0 : 1.0}}>
-                    {showCountyLabels ? 'hide text' : 'show text'}
+                <div style={{
+                    position: 'absolute',
+                    bottom: 20,
+                    right: 20,
+                }}>
+                    <div className='show_counties_button'
+                        onClick={onShowCountiesClicked}
+                        style={{
+                            opacity: expandedModeRef.current ?
+                                0.0 : 1.0
+                        }}>
+                        {showCountyLabels ? 'hide text' : 'show text'}
+                    </div>
                 </div>
             </div>
+
+
             <div>
                 <audio id='audio_player' ref={audioRef}>
                     <source src='/audio/test_file2.mp3' type='audio/mp3' />

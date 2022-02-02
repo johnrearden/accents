@@ -7,10 +7,16 @@
     height: 100%;
 }
 
+#main_div {
+    background-image: radial-gradient(#00000088, #00000000); 
+    border-radius: 20px;
+}
+
 .show_counties_button {
   cursor: pointer;
-  background-color: #ffffff30;
+  background-color: #ffffff10;
   color: white;
+  font-size: 10px;
   padding: 1px 5px;
   border: 1px solid #aaaaaa;
   border-radius: 5px;

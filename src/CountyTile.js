@@ -4,7 +4,7 @@ import AccentSelector from './AccentSelector.js';
 import { county_data } from './data/county_data.js'
 
 const CountyTile = (props) => {
-    
+
     const onClick = (event) => {
         //console.log(props.name + ' clicked');
         props.handleClick();
@@ -30,7 +30,7 @@ const CountyTile = (props) => {
     let textSize = (Math.round(props.mapRect.width * .05)).toString() + 'px';
     let ratio = 1.0;
     let textLeft = left + textCenterX - props.countyNameTextSize.width / 2;
-    let textTop = top + textCenterY - props.countyNameTextSize.height / 2; 
+    let textTop = top + textCenterY - props.countyNameTextSize.height / 2;
     if (props.expanded) {
         let expandedWidth = props.mapRect.width * 1.0;
         if (expandedWidth > width * 4) {
@@ -44,23 +44,23 @@ const CountyTile = (props) => {
         left = expandedLeft;
         width = expandedWidth;
         height = expandedHeight;
-        textLeft = left;
-        textTop = top;
+        textLeft = 10;
+        textTop = 10;
+        console.log('props.mapRect.left == ' + props.mapRect.left);
     }
-    
+
     let opac = 1.0;
     if (props.highlighted && !props.expanded) {
         opac = 0.8;
     } else if (props.backgrounded) {
-        opac = 0.2; 
-    } 
+        opac = 0.2;
+    }
     let zIndex = props.highlighted ? 3 : 2;
     let showSmallLabels = !props.backgrounded && props.showLabel;
     let showBigLabel = !showSmallLabels && props.highlighted && !props.expanded;
-    let smallLabelFontSize = !props.expanded ? 
+    let smallLabelFontSize = !props.expanded ?
         props.countyNameFontSize + 'px' : '20px';
     let labelOpac = showSmallLabels ? 1.0 : 0.0;
-    console.log(labelOpac);
 
     return (
         <div className='county_tile'>
@@ -94,7 +94,7 @@ const CountyTile = (props) => {
             <div className='small_label'
                 style={{
                     position: 'absolute',
-                    color: props.expanded ? 'white' : '#aaaaaa',
+                    color: props.expanded ? 'white' : '#888888',
                     top: textTop,
                     left: textLeft,
                     fontSize: smallLabelFontSize,
@@ -104,32 +104,35 @@ const CountyTile = (props) => {
                 }}>
                 {props.name}
             </div>
-            
+
             <div className='location_buttons'>
                 <AccentSelector name={props.name}
-                                expandedRatio={ratio}
-                                sizeRatio={props.sizeRatio}
-                                left={left}
-                                top={top}
-                                absLeft={coords.left}
-                                absTop={coords.top}
-                                width={width}
-                                height={height}
-                                expanded={props.expanded}
-                                onAccentSelected={onAccentSelected}
+                    expandedRatio={ratio}
+                    sizeRatio={props.sizeRatio}
+                    left={left}
+                    top={top}
+                    absLeft={coords.left}
+                    absTop={coords.top}
+                    width={width}
+                    height={height}
+                    expanded={props.expanded}
+                    onAccentSelected={onAccentSelected}
                 />
             </div>
             <div>
                 <button className='close_button'
-                        style={{
-                            opacity: props.expanded ? 1.0 : 0.0,
-                            border: 'none',
-                            fontSize: textSize,
-                            left: left + width - width / 5,
-                            top: top + height,
-                            zIndex: props.expanded ? 4 : 1}}
-                        onClick={onCloseButtonClicked}>
-                            close
+                    style={{
+                        opacity: props.expanded ? 1.0 : 0.0,
+                        fontSize: textSize,
+                        position: 'absolute',
+                        right: '20px',
+                        top: '20px',
+                        // left: left + width - width / 5,
+                        // top: top + height,
+                        zIndex: props.expanded ? 4 : 1
+                    }}
+                    onClick={onCloseButtonClicked}>
+                    x
                 </button>
             </div>
         </div>
