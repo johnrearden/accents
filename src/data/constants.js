@@ -31,11 +31,11 @@ export const COUNTY_INFO = new Map([
         gaaName : 'The Dolman County'}],
     ['cavan', {
         name : 'Cavan', 
-        irishName : 'An Cabh&#225n', 
+        irishName : 'An Cabh\u00E1n', 
         gaaName : 'The Breffni County'}],
     ['clare', {
         name : 'Clare', 
-        irishName : 'An Cl&#225r', 
+        irishName : 'An Cl\u00E1r', 
         gaaName : 'The Banner County'}],
     ['cork', {
         name : 'Cork', 
@@ -47,15 +47,15 @@ export const COUNTY_INFO = new Map([
         gaaName : 'The Oak Leaf County'}],
     ['donegal', {
         name : 'Donegal', 
-        irishName : 'D&#250n na nGall', 
-        gaaName : 'The T&#2347r Conaill Men'}],
+        irishName : 'D\u00FAn na nGall', 
+        gaaName : 'The T\u00EDr Conaill Men'}],
     ['down', {
         name : 'Down', 
-        irishName :'An D&#250n', 
+        irishName :'An D\u00FAn', 
         gaaName : 'The Mourne County'}], 
     ['dublin', {
         name : 'Dublin', 
-        irishName : '&#225th Cliath', 
+        irishName : '\u00C1th Cliath', 
         gaaName : 'The Metropolitans'}],
     ['fermanagh', {
         name : 'Fermanagh', 
@@ -67,7 +67,7 @@ export const COUNTY_INFO = new Map([
         gaaName : 'The Tribesmen'}],
     ['kerry', {
         name : 'Kerry', 
-        irishName : 'Ciarra&#237', 
+        irishName : 'Ciarra\u00ED', 
         gaaName : 'The Kingdom'}],
     ['kildare', {
         name : 'Kildare', 
@@ -95,7 +95,7 @@ export const COUNTY_INFO = new Map([
         gaaName : 'O\'Farrell County'}],
     ['louth', {
         name : 'Louth', 
-        irishName : 'L&#250', 
+        irishName : 'L\u00FA', 
         gaaName : 'The Wee County'}],
     ['mayo', {
         name : 'Mayo', 
@@ -103,19 +103,19 @@ export const COUNTY_INFO = new Map([
         gaaName : 'The Westerners'}],
     ['meath', {
         name : 'Meath', 
-        irishName : 'An Mh&#237', 
+        irishName : 'An Mh\u00ED', 
         gaaName : 'The Royal County'}],
     ['monaghan', {
         name : 'Monaghan', 
-        irishName : 'Muineach&#225n', 
+        irishName : 'Muineach\u00E1n', 
         gaaName : 'Farney County'}],
     ['offaly', {
         name : 'Offaly',
-        irishName : 'U&#237bh Fhail&#237',
+        irishName : 'U\u00EDbh Fhail\u00ED',
         gaaName : 'The Faithful County'}],
     ['roscommon', {
         name : 'Roscommon',
-        irishName : 'Ros Com&#225in',
+        irishName : 'Ros Com\u00E1in',
         gaaName : 'The Sheepstealers'}],
     ['sligo', {
         name : 'Sligo', 
@@ -123,19 +123,19 @@ export const COUNTY_INFO = new Map([
         gaaName : 'Yeat\'s County'}],
     ['tipperary', {
         name : 'Tipperary', 
-        irishName : 'Tiobraid &#193rainn', 
+        irishName : 'Tiobraid \u00C1rainn', 
         gaaName : 'The Premier County'}],
     ['tyrone', {
         name : 'Tyrone', 
-        irishName : 'T&#237',
+        irishName : 'T\u00ED',
         gaaName : 'The Red Hand'}],
     ['waterford', {
         name : 'Waterford',
-        irishName : 'Port L&#225irge',
+        irishName : 'Port L\u00E1irge',
         gaaName : 'The Deise'}],
     ['westmeath', {
         name : 'Westmeath',
-        irishName : 'An Iarmh&#237',
+        irishName : 'An Iarmh\u00ED',
         gaaName : 'The Lake County'}],
     ['wexford', {
         name : 'Wexford',
@@ -143,7 +143,7 @@ export const COUNTY_INFO = new Map([
         gaaName : 'The Model County'}],
     ['wicklow', {
         name : 'Wicklow',
-        irishName : 'Cill Mhant&#225in',
+        irishName : 'Cill Mhant\u00E1in',
         gaaName : 'The Garden County'}],
     ]);
     

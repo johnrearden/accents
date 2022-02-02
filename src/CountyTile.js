@@ -2,6 +2,7 @@ import React from 'react';
 import './css/CountyTile.css';
 import AccentSelector from './AccentSelector.js';
 import { county_data } from './data/county_data.js'
+import { COUNTY_INFO } from './data/constants';
 
 const CountyTile = (props) => {
 
@@ -31,6 +32,9 @@ const CountyTile = (props) => {
     let ratio = 1.0;
     let textLeft = left + textCenterX - props.countyNameTextSize.width / 2;
     let textTop = top + textCenterY - props.countyNameTextSize.height / 2;
+    let smallLabelText = props.name;
+    let extraText = '\n' + COUNTY_INFO.get(props.name).irishName
+                    + '\n\'' + COUNTY_INFO.get(props.name).gaaName + '\'';
     if (props.expanded) {
         let expandedWidth = props.mapRect.width * 1.0;
         if (expandedWidth > width * 4) {
@@ -46,7 +50,7 @@ const CountyTile = (props) => {
         height = expandedHeight;
         textLeft = 10;
         textTop = 10;
-        console.log('props.mapRect.left == ' + props.mapRect.left);
+        smallLabelText = props.name.charAt(0).toUpperCase() + props.name.slice(1);
     }
 
     let opac = 1.0;
@@ -94,7 +98,7 @@ const CountyTile = (props) => {
             <div className='small_label'
                 style={{
                     position: 'absolute',
-                    color: props.expanded ? 'white' : '#888888',
+                    color: props.expanded ? 'white' : '#999999',
                     top: textTop,
                     left: textLeft,
                     fontSize: smallLabelFontSize,
@@ -102,7 +106,16 @@ const CountyTile = (props) => {
                     opacity: labelOpac,
                     pointerEvents: 'none',
                 }}>
-                {props.name}
+                {smallLabelText}
+                <span style={{
+                    fontSize: '60%',
+                    fontColor: '#888888',
+                    fontStyle: 'italic',
+                    lineHeight: '100%',
+                    opacity: props.expanded ? 1.0 : 0.0,
+                }}>
+                    {extraText}
+                </span>
             </div>
 
             <div className='location_buttons'>
