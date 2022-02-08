@@ -69,7 +69,7 @@ const CountyTile = (props) => {
     return (
         <div className='county_tile'>
             <img src={source}
-                className='county_image' alt='Map of County'
+                className='county_image' 
                 onClick={(event) => {
                     onClick(event);
                 }}
@@ -98,7 +98,7 @@ const CountyTile = (props) => {
             <div className='small_label'
                 style={{
                     position: 'absolute',
-                    color: props.expanded ? 'white' : '#999999',
+                    color: props.expanded ? 'white' : '#bbbbbb',
                     top: textTop,
                     left: textLeft,
                     fontSize: smallLabelFontSize,
