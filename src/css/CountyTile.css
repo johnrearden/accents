@@ -15,7 +15,7 @@
 .small_label{
     white-space: pre-wrap;
     position: absolute;
-    transition-property: opacity, left, top, font-size;
+    transition-property: opacity, left, top, font-size, color;
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
 }
@@ -25,15 +25,15 @@
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
     background: transparent;
-    color: #dddddd;
+    color: black;
     position: absolute;
-    border: 1px solid #ddd;
+    border: 1px solid black;
     border-radius: 5px 5px;
     padding: 1px 5px 3px 5px;
 }
 
 .close_button:hover {
-    color: white;
-    border-color: white;
-    background-color: #ffffff33;
+    color: grey;
+    border-color: grey;
+    background-color: White;
 }

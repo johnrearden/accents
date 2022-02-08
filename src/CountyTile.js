@@ -98,7 +98,7 @@ const CountyTile = (props) => {
             <div className='small_label'
                 style={{
                     position: 'absolute',
-                    color: props.expanded ? 'white' : '#bbbbbb',
+                    color: props.expanded ? 'white' : 'white',
                     top: textTop,
                     left: textLeft,
                     fontSize: smallLabelFontSize,
