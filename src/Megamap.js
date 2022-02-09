@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { county_red_codes } from './data/county_red_codes';
 import { coordinates } from './data/coordinates';
 import CountyTile from './CountyTile.js';
-import CountyDropDown from './CountyDropDown.js';
 import { IRELAND_MAP_BASE_WIDTH } from './data/constants';
 import { IRELAND_MAP_BASE_RATIO } from './data/constants';
 import './css/Megamap.css';
@@ -12,14 +11,13 @@ const COUNTY_NAME_FONT_SIZE = 8;
 function Megamap(props) {
     const [currentCounty, setCurrentCounty] = useState(undefined);
     const [selectedCounty, setSelectedCounty] = useState('none');
-    const [showCountyLabels, setShowCountyLabels] = useState(true);
+    const [showCountyLabels, setShowCountyLabels] = useState(false);
     const [mapRect, setMapRect] = useState({ left: 0, top: 0, width: 0, height: 0 });
     const componentReference = useRef(null);
     const expandedModeRef = useRef(false);
     const canvasRef = useRef(null);
     const hiddenImageRef = useRef(null);
     const mainDivRef = useRef(null);
-    const countyLabelRef = useRef(null);
     const audioRef = useRef(null);
     const [shouldRerender, setShouldRerender] = useState(true);
     const county_data = coordinates;
@@ -107,7 +105,6 @@ function Megamap(props) {
     }
 
     const expandedCountyLostFocus = () => {
-        console.log('expanded county lost focus');
         expandedModeRef.current = false;
         setSelectedCounty('none');
         setCurrentCounty('none');
@@ -209,12 +206,10 @@ function Megamap(props) {
                             opacity: expandedModeRef.current ?
                                 0.0 : 1.0
                         }}>
-                        {showCountyLabels ? 'hide text' : 'show text'}
+                        {showCountyLabels ? 'hide names' : 'show names'}
                     </div>
                 </div>
             </div>
-
-
             <div>
                 <audio id='audio_player' ref={audioRef}>
                     <source src='/audio/test_file2.mp3' type='audio/mp3' />

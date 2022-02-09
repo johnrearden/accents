@@ -7,8 +7,7 @@
     justify-content: start;
     align-items : center;
     color: #333333;
-    /*background: #444444aa;*/
-    background-image: radial-gradient(#000000ff, #00000000); 
+    background-image: radial-gradient(#ffff8888, #00000000); 
     border-radius: 20px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -27,11 +26,9 @@
     color: white;
 }
 
-
-
 .start_button {
     width: 16vw;
-    background-image: radial-gradient(#dddddd, #999999);
+    background: #ffffff33;
     font-size: 30px;
     margin-top: 20px;
     padding: 5px 0px 5px 0px;
@@ -41,7 +38,7 @@
 }
 
 .start_button:disabled {
-    color: #99999911;
+    display: none;
     pointer-events: none;
 }
 

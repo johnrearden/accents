@@ -1,15 +1,30 @@
 .accent_location {
-    color: #aaaaaa;
+    color: white;
+    font-size: 90%;
 }
 
 .accent_location:hover {
-    color: white;
+    color: #ccccff;
 }
 
 .accent_button {
-    background: #aaaaaa;
+    background: white;
 }
 
 .accent_location:hover .accent_button{
-    background: white;
+    background: #ccccff;
+}
+
+.no_clips_message {
+    color : white;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    font-size : 120%;
+}
+
+@media screen and (max-width: 900px) and (orientation:portrait) {
+    .accent_location {
+        font-size: 70%;
+    }
 }

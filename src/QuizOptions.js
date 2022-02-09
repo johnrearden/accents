@@ -175,8 +175,6 @@ function QuizOptions(props) {
         return (
             <React.Fragment key={county}>
                 <div className='quiz_option_wrapper'>
-                    {/* <div className='question_mask'>
-                    </div> */}
                     <div className='quiz_option'
                         onClick={(event) => { onOptionClick(event, county) }}
                         style={{opacity : opacity}}>
@@ -188,9 +186,7 @@ function QuizOptions(props) {
                             padding: '10px',
                         }}>
                         </div>
-                        <div className='option_label' 
-                            style={{color: 'silver'}}
-                            >
+                        <div className='option_label'>
                             {title}
                         </div>
                     </div>

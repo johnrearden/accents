@@ -24,16 +24,15 @@
     transition-property: opacity;
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
-    background: transparent;
-    color: black;
+    background-color: #ffffff33;    
+    color: white;
     position: absolute;
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 5px 5px;
     padding: 1px 5px 3px 5px;
 }
 
 .close_button:hover {
-    color: grey;
-    border-color: grey;
-    background-color: White;
+    color: #feda0c;
+    border-color: #feda0c;
 }

@@ -110,12 +110,7 @@ const Nav = () => (
 )
 
 const App = () => {
-  // for (let loc of locations) {
-  //   console.log(loc.name + ' : (' + calculateXPos(loc.long) + ','
-  //             + calculateYPos(loc.lat) + ')');
-  //   console.log('Actual : ' + loc.x + ',' + loc.y);
-  // }
-
+  
   return (
     <div>
       <HashRouter>

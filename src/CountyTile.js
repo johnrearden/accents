@@ -6,6 +6,8 @@ import { COUNTY_INFO } from './data/constants';
 
 const CountyTile = (props) => {
 
+    //console.log('CountyTile for ' + props.name + ' rendered');
+
     const onClick = (event) => {
         //console.log(props.name + ' clicked');
         props.handleClick();
@@ -34,7 +36,7 @@ const CountyTile = (props) => {
     let textTop = top + textCenterY - props.countyNameTextSize.height / 2;
     let smallLabelText = props.name;
     let extraText = '\n' + COUNTY_INFO.get(props.name).irishName
-                    + '\n\'' + COUNTY_INFO.get(props.name).gaaName + '\'';
+        + '\n\'' + COUNTY_INFO.get(props.name).gaaName + '\'';
     if (props.expanded) {
         let expandedWidth = props.mapRect.width * 1.0;
         if (expandedWidth > width * 4) {
@@ -60,16 +62,33 @@ const CountyTile = (props) => {
         opac = 0.2;
     }
     let zIndex = props.highlighted ? 3 : 2;
-    let showSmallLabels = !props.backgrounded && props.showLabel;
+    let showSmallLabels = props.expanded || (!props.backgrounded && props.showLabel);
     let showBigLabel = !showSmallLabels && props.highlighted && !props.expanded;
     let smallLabelFontSize = !props.expanded ?
         props.countyNameFontSize + 'px' : '20px';
     let labelOpac = showSmallLabels ? 1.0 : 0.0;
 
+    let accentComponent;
+    if (props.expanded) {
+        accentComponent =
+            <AccentSelector name={props.name}
+                expandedRatio={ratio}
+                sizeRatio={props.sizeRatio}
+                left={left}
+                top={top}
+                absLeft={coords.left}
+                absTop={coords.top}
+                width={width}
+                height={height}
+                expanded={props.expanded}
+                onAccentSelected={onAccentSelected}
+            />
+    } 
+
     return (
         <div className='county_tile'>
             <img src={source}
-                className='county_image' 
+                className='county_image'
                 onClick={(event) => {
                     onClick(event);
                 }}
@@ -119,18 +138,7 @@ const CountyTile = (props) => {
             </div>
 
             <div className='location_buttons'>
-                <AccentSelector name={props.name}
-                    expandedRatio={ratio}
-                    sizeRatio={props.sizeRatio}
-                    left={left}
-                    top={top}
-                    absLeft={coords.left}
-                    absTop={coords.top}
-                    width={width}
-                    height={height}
-                    expanded={props.expanded}
-                    onAccentSelected={onAccentSelected}
-                />
+                {accentComponent}
             </div>
             <div>
                 <button className='close_button'
@@ -140,8 +148,6 @@ const CountyTile = (props) => {
                         position: 'absolute',
                         right: '20px',
                         top: '20px',
-                        // left: left + width - width / 5,
-                        // top: top + height,
                         zIndex: props.expanded ? 4 : 1
                     }}
                     onClick={onCloseButtonClicked}>

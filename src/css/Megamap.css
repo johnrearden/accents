@@ -16,10 +16,14 @@
   cursor: pointer;
   background-color: #ffffff10;
   color: white;
-  font-size: 10px;
+  font-size: 70%;
   padding: 1px 5px;
   border: 1px solid #aaaaaa;
   border-radius: 5px;
+}
+
+.show_counties_button:hover {
+  background-color: #00000010;
 }
 
 @media screen and (max-width: 900px) and (orientation:portrait) {
